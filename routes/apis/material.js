@@ -3,9 +3,15 @@ var mysql = require('../../public/javascripts/mysql');
 
 //新增原材料
 exports.create = function (req, res, next) {
-    var name = req.body.name;
-
     var aRes = comm.result();
+    var name = req.body.name;
+    if(!name){
+        aRes.data = null;
+        aRes.error = -1;
+        aRes.msg = "请输入名称";
+        return res.send(aRes);
+    }
+
     var sql = "INSERT INTO ns_material (name,created_date,updated_date) VALUES (?,NOW(),NOW())";
     var param = [name];
     mysql.query(sql, param, function (result) {

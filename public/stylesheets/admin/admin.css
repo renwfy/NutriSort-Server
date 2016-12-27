@@ -1,0 +1,229 @@
+.box-border {
+    border: 1px solid #e6e7e9;
+    background: #fff;
+}
+
+/**Login START*/
+.login {
+    width: 100%;
+    height: 100%;
+    background-color: #364150;
+    position: absolute;
+}
+
+.form-title {
+    font-size: 22px;
+    text-align: center;
+    color: white;
+    margin: 80px;
+}
+
+.login .content {
+    background-color: #eceef1;
+    margin: 0 auto;
+    width: 400px;
+    padding: 30px;
+    -moz-border-radius: 2px; /* Gecko browsers */
+    -webkit-border-radius: 2px; /* Webkit browsers */
+    border-radius: 2px;
+}
+
+.content h3 {
+    font-size: 20px;
+    text-align: center;
+    color: coral;
+    display: block;
+}
+
+.content .form-control1 {
+    width: 98%;
+    height: 45px;
+    margin-top: 25px;
+    display: block;
+    padding-left: 2%;
+}
+
+.content .form-control2 {
+    width: 98%;
+    height: 45px;
+    margin-top: 10px;
+    display: block;
+    padding-left: 2%;
+}
+
+.content p {
+    width: 100%;
+    height: 45px;
+    color: white;
+    text-align: center;
+    background: coral;
+    margin-top: 25px;
+    line-height: 45px;
+}
+
+/**Login END*/
+
+.manage-head-con {
+    position: relative;
+    height: 18px;
+    line-height: 18px;
+    color: #363636;
+    border-left: 2px solid coral;
+    font-size: 16px;
+}
+
+/*Index*/
+.index-top-box {
+    width: 700px;
+    height: 350px;
+}
+
+.index-welcome {
+    padding: 20px 0;
+    text-align: center;
+    font-size: 18px;
+    border-bottom: 1px solid lightgray;
+}
+
+.index-text-tip {
+    font-size: 13px;
+    margin: 10px;
+}
+
+/*内容头部*/
+.viewcontent-head {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
+}
+
+.viewcontent-head-con {
+    position: relative;
+    height: 18px;
+    line-height: 18px;
+    color: #363636;
+    border-left: 2px solid coral;
+    font-size: 16px;
+}
+
+.viewcontent-table {
+    border: 1px solid #e8e8e9;
+    font-size: 12px;
+    position: relative;
+    line-height: 40px;
+    min-height: 40px;
+}
+
+.viewcontent-table .th {
+    background: #f5f6fa;
+    float: left;
+    height: 40px;
+    color: #87898b;
+    border-right: 1px solid #e8e8e9;
+}
+
+.material-item {
+    border-left: 1px solid #e8e8e9;
+    border-right: 1px solid #e8e8e9;
+    border-bottom: 1px solid #e8e8e9;
+}
+
+.material-item .td {
+    float: left;
+    text-align: center;
+    min-height: 60px;
+    line-height: 60px;
+    border-right: 1px solid #e8e8e9;
+}
+
+.ml-img {
+    width: 60px;
+}
+
+.ml-op-txt {
+    background: #f5f6fa;
+    float: left;
+    height: 40px;
+    color: #87898b;
+}
+
+.ml-op {
+    float: left;
+    text-align: center;
+}
+
+.ml-op a {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    display: inline-block;
+}
+
+.ml-op a img {
+    width: 22px;
+    height: auto;
+    margin-top: 19px;
+}
+
+.add-material {
+    padding: 5px 10px;
+    border: 1px solid coral;
+}
+
+.add-material p, .add-material img {
+    float: left;
+    text-align: center;
+    line-height: 20px;
+    color: coral;
+}
+
+.add-material img {
+    width: 20px;
+    margin-right: 5px;
+}
+
+/*添加食材*/
+.mc-tips {
+    padding: 4px 10px;
+    background: #f5f6fa;
+    border-bottom: 1px solid lightgray;
+}
+
+.mc-list {
+    float: left;
+    padding: 20px 10px;
+    margin-right: 80px;
+}
+
+.mc-item {
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+
+.mc-item p {
+    min-width: 90px;
+    display: inline-block;
+}
+
+.mc-item input, .mc-item select {
+    margin-left: 10px;
+    display: inline-block;
+    background: white;
+    min-width: 350px;
+    height: 30px;
+    border: 1px solid lightgray;
+    padding-left: 10px;
+    font-size: 12px;
+    color: #1F1F1F;
+}
+
+.mc-commit {
+    line-height: 40px;
+    text-align: center;
+    background: coral;
+    color: white;
+    font-size: 14px;
+    width: 450px;
+    margin-left: 10px;
+    margin-bottom: 30px;
+    cursor: pointer;
+}

@@ -1,0 +1,64 @@
+{% include "../../lib/header.html" %}
+<link rel="stylesheet" type="text/css" href="/stylesheets/admin/layout.css"/>
+<link rel="stylesheet" type="text/css" href="/stylesheets/admin/style.css"/>
+<link rel="stylesheet" type="text/css" href="/stylesheets/admin/admin.css"/>
+<div class="view-topbar">
+    <div class="topbar-console">
+        <div class="tobar-head fl">
+            <a href="/admin" class="topbar-home-link topbar-btn text-center fl"><span>挑食管理后台</span></a>
+        </div>
+    </div>
+    <div class="topbar-info">
+        <ul class="fr">
+            <li class="fl">
+                <span class="username"> 欢迎您，admin </span>
+            </li>
+            <li class="fl">
+                <a class="admin-logout" href="/admin/login">
+                    <img src="/images/exit.png">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="view-body">
+    <!--sidebar-->
+    <div class="view-sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-nav">
+                <div class="sidebar-title">
+                    <a>
+                        <span class="icon"><b class="fl icon-arrow-down"></b></span>
+                        <span class="text-normal">产品与服务</span>
+                    </a>
+                </div>
+                <ul class="sidebar-trans">
+                    <li>
+                        <a href="/admin/material/list">
+                            <b class="sidebar-icon"><img src="/images/ic_material_icon.png" width="16" height="16"/></b>
+                            <span class="text-normal">食材列表</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-nav">
+                <div class="sidebar-title">
+                    <a>
+                        <span class="icon"><b class="fl icon-arrow-down"></b></span>
+                        <span class="text-normal">用户中心</span>
+                    </a>
+                </div>
+                <ul class="sidebar-trans">
+                    <li>
+                        <a href="/admin/user/list">
+                            <b class="sidebar-icon"><img src="/images/ic_user_icon.png" width="16" height="16"/></b>
+                            <span class="text-normal">用户列表</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--content-->
+    <div class="view-product background-color">

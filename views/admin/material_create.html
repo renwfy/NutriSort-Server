@@ -1,0 +1,155 @@
+{% include "./lib/admin-header.html" %}
+<div class="padding-big material-create">
+    <div class="material-head">
+        <div class="viewcontent-head clearfix">
+            <h6 class="fl padding-left viewcontent-head-con">添加食材</h6>
+        </div>
+    </div>
+    <div class="viewcontent-table margin-big-top clearfix">
+        <p class="mc-tips">添加食材</p>
+        <div class="clearfix">
+            <div class="mc-list">
+                <div class="mc-item">
+                    <p>名称</p>
+                    <input class="mc-item-name" type="text" placeholder="请输入名称"/>
+                </div>
+                <div class="mc-item">
+                    <p>类别</p>
+                    <select id="mc-type-select">
+                        <option value="C" selected="selected">C</option>
+                        <option value="P">P</option>
+                        <option value="F">F</option>
+                    </select>
+                </div>
+                <div class="mc-item">
+                    <p>图片</p>
+                    <input class="mc-item-img" type="text" placeholder="图片地址"/>
+                </div>
+                <div class="mc-item">
+                    <p>C</p>
+                    <input class="mc-item-c" type="text" placeholder="输入c含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>GI</p>
+                    <input class="mc-item-gi" type="text" placeholder="输入GI含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>GL</p>
+                    <input class="mc-item-gl" type="text" placeholder="输入GL含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>P</p>
+                    <input class="mc-item-p" type="text" placeholder="输入P含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>F</p>
+                    <input class="mc-item-f" type="text" placeholder="输入F含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>Ca</p>
+                    <input class="mc-item-ca" type="text" placeholder="输入Ca含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>Zn</p>
+                    <input class="mc-item-zn" type="text" placeholder="输入Zn含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>K</p>
+                    <input class="mc-item-k" type="text" placeholder="输入K含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>I</p>
+                    <input class="mc-item-mg" type="text" placeholder="输入I含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>Mg</p>
+                    <input class="mc-item-mg" type="text" placeholder="输入Mg含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>Fe</p>
+                    <input class="mc-item-fe" type="text" placeholder="输入Fe含量"/>
+                </div>
+            </div>
+            <div class="mc-list">
+                <div class="mc-item">
+                    <p>能量</p>
+                    <input class="mc-item-energy" type="text" placeholder="输入能量值"/>
+                </div>
+                <div class="mc-item">
+                    <p>碳水化合物</p>
+                    <input class="mc-item-car" type="text" placeholder="输入碳水化合物含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>蛋白质</p>
+                    <input class="mc-item-protein" type="text" placeholder="输入蛋白质含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>动物优质蛋白</p>
+                    <input class="mc-item-ani" type="text" placeholder="输入动物优质蛋白含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>植物优质蛋白</p>
+                    <input class="mc-item-plant" type="text" placeholder="输入植物优质蛋白含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>脂肪</p>
+                    <input class="mc-item-fat" type="text" placeholder="输入脂肪含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>饱和脂肪酸</p>
+                    <input class="mc-item-delspray" type="text" placeholder="输入饱和脂肪酸含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>单不饱和脂肪酸</p>
+                    <input class="mc-item-mindelspray" type="text" placeholder="输入单不饱和脂肪酸含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>多不饱和脂肪酸</p>
+                    <input class="mc-item-maxdelspray" type="text" placeholder="输入多不饱和脂肪酸含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>维生素A</p>
+                    <input class="mc-item-va" type="text" placeholder="输入维生素A含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>维生素B</p>
+                    <input class="mc-item-vb" type="text" placeholder="输入维生素B含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>维生素C</p>
+                    <input class="mc-item-vc" type="text" placeholder="输入维生素C含量"/>
+                </div>
+                <div class="mc-item">
+                    <p>维生素E</p>
+                    <input class="mc-item-ve" type="text" placeholder="输入维生素E含量"/>
+                </div>
+            </div>
+        </div>
+        <p class="mc-commit">提交</p>
+    </div>
+</div>
+<script type="text/javascript">
+    //页面加载
+    function onPageLoad() {
+        $('.mc-commit').click(function () {
+            var name = $(".mc-item-name").val();
+            var url = "/api/material/create";
+            var pama = {"name":name};
+            API_POST(url,pama,function (jsonData) {
+                if(jsonData.error){
+                    layer.msg(jsonData.msg);
+                    return;
+                }
+                layer.alert('添加成功', {icon: 1},function () {
+                    layer.closeAll();
+                    cleaninput();
+                });
+            })
+        });
+    }
+
+    function cleaninput() {
+        $(".mc-item-name").val("");
+    }
+</script>
+{% include "./lib/admin-footer.html" %}
