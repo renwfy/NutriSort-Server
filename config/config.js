@@ -17,10 +17,8 @@ var config = {
 };
 
 if ('production' == process.env.NODE_ENV) {
-    config.mysql.host = 'localhost';
     config.mysql.user = 'family';
     config.mysql.password = 'fp123456';
-    config.database = 'nutrisort';
     config.isProduction = true;
 }
 
