@@ -188,32 +188,59 @@
     border-bottom: 1px solid lightgray;
 }
 
-.mc-list {
-    float: left;
-    padding: 20px 10px;
-    margin-right: 80px;
+.list-box{
+    padding: 20px 15px;
 }
 
+.mc-list {
+    float: left;
+    margin-right: 30px;
+}
+
+/*.mc-item {*/
+    /*position: relative;*/
+    /*line-height: 30px;*/
+    /*margin-bottom: 10px;*/
+/*}*/
+
 .mc-item {
+    float: left;
+    margin-right: 30px;
+    position: relative;
     line-height: 30px;
     margin-bottom: 10px;
 }
 
 .mc-item p {
-    min-width: 90px;
-    display: inline-block;
+    min-width: 85px;
+    float: left;
 }
 
-.mc-item input, .mc-item select {
+.mc-item input, .mc-item select, .mc-item textarea ,.mc-item-img{
+    width: 200px;
+    overflow-x: hidden;
     margin-left: 10px;
-    display: inline-block;
+    float: left;
     background: white;
-    min-width: 350px;
     height: 30px;
     border: 1px solid lightgray;
     padding-left: 10px;
     font-size: 12px;
     color: #1F1F1F;
+}
+#id_uploadimg {
+    position: absolute;
+    left: 236px;
+    background: lightgray;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    padding: 0 5px;
+}
+
+.mc-item-intro {
+    min-height: 70px;
+    max-height: 70px;
 }
 
 .mc-commit {

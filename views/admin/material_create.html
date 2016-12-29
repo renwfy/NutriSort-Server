@@ -1,4 +1,7 @@
 {% include "./lib/admin-header.html" %}
+<!--七牛上传用-->
+<script type="text/javascript" src="/javascripts/plupload/plupload.full.min.js"></script>
+<script type="text/javascript" src="/javascripts/plupload/qiniu.min.js"></script>
 <div class="padding-big material-create">
     <div class="material-head">
         <div class="viewcontent-head clearfix">
@@ -7,13 +10,24 @@
     </div>
     <div class="viewcontent-table margin-big-top clearfix">
         <p class="mc-tips">添加食材</p>
-        <div class="clearfix">
+
+        <!--
+        <div class="list-box clearfix">
             <div class="mc-list">
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>名称</p>
                     <input class="mc-item-name" type="text" placeholder="请输入名称"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
+                    <p class="mc-item-intro-text">简介</p>
+                    <textarea class="mc-item-intro" type="text" placeholder="请输入简介"></textarea>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>图片</p>
+                    <a target="_blank" class="mc-item-img">上传图片</a>
+                    <a href="#" id="id_uploadimg">选择文件</a>
+                </div>
+                <div class="mc-item clearfix">
                     <p>类别</p>
                     <select id="mc-type-select">
                         <option value="C" selected="selected">C</option>
@@ -21,126 +35,601 @@
                         <option value="F">F</option>
                     </select>
                 </div>
-                <div class="mc-item">
-                    <p>图片</p>
-                    <input class="mc-item-img" type="text" placeholder="图片地址"/>
-                </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>C</p>
-                    <input class="mc-item-c" type="text" placeholder="输入c含量"/>
+                    <input class="mc-item-c" type="number" placeholder="输入c含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>GI</p>
-                    <input class="mc-item-gi" type="text" placeholder="输入GI含量"/>
+                    <input class="mc-item-gi" type="number" placeholder="输入GI含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>GL</p>
-                    <input class="mc-item-gl" type="text" placeholder="输入GL含量"/>
+                    <input class="mc-item-gl" type="number" placeholder="输入GL含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>P</p>
-                    <input class="mc-item-p" type="text" placeholder="输入P含量"/>
+                    <input class="mc-item-p" type="number" placeholder="输入P含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>F</p>
-                    <input class="mc-item-f" type="text" placeholder="输入F含量"/>
+                    <input class="mc-item-f" type="number" placeholder="输入F含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>Ca</p>
-                    <input class="mc-item-ca" type="text" placeholder="输入Ca含量"/>
+                    <input class="mc-item-ca" type="number" placeholder="输入Ca含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>Zn</p>
-                    <input class="mc-item-zn" type="text" placeholder="输入Zn含量"/>
+                    <input class="mc-item-zn" type="number" placeholder="输入Zn含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>K</p>
-                    <input class="mc-item-k" type="text" placeholder="输入K含量"/>
+                    <input class="mc-item-k" type="number" placeholder="输入K含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>I</p>
-                    <input class="mc-item-mg" type="text" placeholder="输入I含量"/>
+                    <input class="mc-item-i" type="number" placeholder="输入I含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>Mg</p>
-                    <input class="mc-item-mg" type="text" placeholder="输入Mg含量"/>
+                    <input class="mc-item-mg" type="number" placeholder="输入Mg含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>Fe</p>
-                    <input class="mc-item-fe" type="text" placeholder="输入Fe含量"/>
+                    <input class="mc-item-fe" type="number" placeholder="输入Fe含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>Na</p>
+                    <input class="mc-item-na" type="number" placeholder="输入Na含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>Ci</p>
+                    <input class="mc-item-ci" type="number" placeholder="输入Ci含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>Se</p>
+                    <input class="mc-item-se" type="number" placeholder="输入se含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>Cu</p>
+                    <input class="mc-item-cu" type="number" placeholder="输入Cu含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>Gr</p>
+                    <input class="mc-item-gr" type="number" placeholder="输入Gr含量"/>
                 </div>
             </div>
             <div class="mc-list">
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>能量</p>
-                    <input class="mc-item-energy" type="text" placeholder="输入能量值"/>
+                    <input class="mc-item-energy" type="number" placeholder="输入能量值"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>碳水化合物</p>
-                    <input class="mc-item-car" type="text" placeholder="输入碳水化合物含量"/>
+                    <input class="mc-item-carbohydrate" type="number" placeholder="输入碳水化合物含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>蛋白质</p>
-                    <input class="mc-item-protein" type="text" placeholder="输入蛋白质含量"/>
+                    <input class="mc-item-protein" type="number" placeholder="输入蛋白质含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>动物优质蛋白</p>
-                    <input class="mc-item-ani" type="text" placeholder="输入动物优质蛋白含量"/>
+                    <input class="mc-item-animal_protein" type="number" placeholder="输入动物优质蛋白含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>植物优质蛋白</p>
-                    <input class="mc-item-plant" type="text" placeholder="输入植物优质蛋白含量"/>
+                    <input class="mc-item-plant_protein" type="number" placeholder="输入植物优质蛋白含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>脂肪</p>
-                    <input class="mc-item-fat" type="text" placeholder="输入脂肪含量"/>
+                    <input class="mc-item-axunge" type="number" placeholder="输入脂肪含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>饱和脂肪酸</p>
-                    <input class="mc-item-delspray" type="text" placeholder="输入饱和脂肪酸含量"/>
+                    <input class="mc-item-saturated" type="number" placeholder="输入饱和脂肪酸含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>单不饱和脂肪酸</p>
-                    <input class="mc-item-mindelspray" type="text" placeholder="输入单不饱和脂肪酸含量"/>
+                    <input class="mc-item-minsaturated" type="number" placeholder="输入单不饱和脂肪酸含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
                     <p>多不饱和脂肪酸</p>
-                    <input class="mc-item-maxdelspray" type="text" placeholder="输入多不饱和脂肪酸含量"/>
+                    <input class="mc-item-maxsaturated" type="number" placeholder="输入多不饱和脂肪酸含量"/>
                 </div>
-                <div class="mc-item">
-                    <p>维生素A</p>
-                    <input class="mc-item-va" type="text" placeholder="输入维生素A含量"/>
+                <div class="mc-item clearfix">
+                    <p>苏氨酸</p>
+                    <input class="mc-item-threonine" type="number" placeholder="输入苏氨酸含量"/>
                 </div>
-                <div class="mc-item">
-                    <p>维生素B</p>
-                    <input class="mc-item-vb" type="text" placeholder="输入维生素B含量"/>
+                <div class="mc-item clearfix">
+                    <p>蛋氨酸</p>
+                    <input class="mc-item-methionine" type="number" placeholder="输入蛋氨酸含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
+                    <p>亮氨酸</p>
+                    <input class="mc-item-leucine" type="number" placeholder="输入亮氨酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>异亮氨酸</p>
+                    <input class="mc-item-isoleucine" type="number" placeholder="输入异亮氨酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>苯丙氨酸</p>
+                    <input class="mc-item-phenylalanine" type="number" placeholder="输入苯丙氨酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>缬氨酸</p>
+                    <input class="mc-item-valine" type="number" placeholder="输入缬氨酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>赖氨酸</p>
+                    <input class="mc-item-lysine" type="number" placeholder="输入赖氨酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>色氨酸</p>
+                    <input class="mc-item-tryptophan" type="number" placeholder="输入色氨酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>组氨酸</p>
+                    <input class="mc-item-histidine" type="number" placeholder="输入组氨酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>精氨酸</p>
+                    <input class="mc-item-arginine" type="number" placeholder="输入精氨酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>谷氨酰胺</p>
+                    <input class="mc-item-glutamine" type="number" placeholder="输入谷氨酰胺含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>牛磺酸</p>
+                    <input class="mc-item-taurine" type="number" placeholder="输入牛磺酸含量"/>
+                </div>
+            </div>
+            <div class="mc-list">
+                <div class="mc-item clearfix">
+                    <p>胱氨酸</p>
+                    <input class="mc-item-cystine" type="number" placeholder="输入胱氨酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>酪氨酸</p>
+                    <input class="mc-item-tyrosine" type="number" placeholder="输入酪氨酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>烟酸</p>
+                    <input class="mc-item-niacin" type="number" placeholder="输入烟酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>叶酸</p>
+                    <input class="mc-item-folicacid" type="number" placeholder="输入叶酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>泛酸</p>
+                    <input class="mc-item-pantothenic" type="number" placeholder="输入泛酸含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>肉碱</p>
+                    <input class="mc-item-carnitine" type="number" placeholder="输入肉碱含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>生物素</p>
+                    <input class="mc-item-biotin" type="number" placeholder="输入生物素含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>胆碱</p>
+                    <input class="mc-item-choline" type="number" placeholder="输入胆碱含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>维生素B1</p>
+                    <input class="mc-item-vb1" type="number" placeholder="输入维生素B1含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>维生素B2</p>
+                    <input class="mc-item-vb2" type="number" placeholder="输入维生素B2含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>维生素B6</p>
+                    <input class="mc-item-vb6" type="number" placeholder="输入维生素B6含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>维生素B12</p>
+                    <input class="mc-item-vb12" type="number" placeholder="输入维生素B12含量"/>
+                </div>
+                <div class="mc-item clearfix">
                     <p>维生素C</p>
-                    <input class="mc-item-vc" type="text" placeholder="输入维生素C含量"/>
+                    <input class="mc-item-vc" type="number" placeholder="输入维生素C含量"/>
                 </div>
-                <div class="mc-item">
+                <div class="mc-item clearfix">
+                    <p>维生素D</p>
+                    <input class="mc-item-vd" type="number" placeholder="输入维生素D含量"/>
+                </div>
+                <div class="mc-item clearfix">
                     <p>维生素E</p>
-                    <input class="mc-item-ve" type="text" placeholder="输入维生素E含量"/>
+                    <input class="mc-item-ve" type="number" placeholder="输入维生素E含量"/>
+                </div>
+                <div class="mc-item clearfix">
+                    <p>维生素K</p>
+                    <input class="mc-item-vk" type="number" placeholder="输入维生素K含量"/>
                 </div>
             </div>
         </div>
+        --->
+
+        <div class="list-box clearfix">
+            <div class="mc-item clearfix">
+                <p>名称</p>
+                <input class="mc-item-name" type="text" placeholder="请输入名称"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p class="mc-item-intro-text">简介</p>
+                <textarea class="mc-item-intro" type="text" placeholder="请输入简介"></textarea>
+            </div>
+            <div class="mc-item clearfix">
+                <p>图片</p>
+                <a target="_blank" class="mc-item-img">上传图片</a>
+                <a href="#" id="id_uploadimg">选择文件</a>
+            </div>
+            <div class="mc-item clearfix">
+                <p>类别</p>
+                <select id="mc-type-select">
+                    <option value="C" selected="selected">C</option>
+                    <option value="P">P</option>
+                    <option value="F">F</option>
+                </select>
+            </div>
+            <div class="mc-item clearfix">
+                <p>C</p>
+                <input class="mc-item-c" type="number" placeholder="输入c含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>GI</p>
+                <input class="mc-item-gi" type="number" placeholder="输入GI含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>GL</p>
+                <input class="mc-item-gl" type="number" placeholder="输入GL含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>P</p>
+                <input class="mc-item-p" type="number" placeholder="输入P含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>F</p>
+                <input class="mc-item-f" type="number" placeholder="输入F含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Ca</p>
+                <input class="mc-item-ca" type="number" placeholder="输入Ca含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Zn</p>
+                <input class="mc-item-zn" type="number" placeholder="输入Zn含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>K</p>
+                <input class="mc-item-k" type="number" placeholder="输入K含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>I</p>
+                <input class="mc-item-i" type="number" placeholder="输入I含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Mg</p>
+                <input class="mc-item-mg" type="number" placeholder="输入Mg含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Fe</p>
+                <input class="mc-item-fe" type="number" placeholder="输入Fe含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Na</p>
+                <input class="mc-item-na" type="number" placeholder="输入Na含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Ci</p>
+                <input class="mc-item-ci" type="number" placeholder="输入Ci含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Se</p>
+                <input class="mc-item-se" type="number" placeholder="输入se含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Cu</p>
+                <input class="mc-item-cu" type="number" placeholder="输入Cu含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Gr</p>
+                <input class="mc-item-gr" type="number" placeholder="输入Gr含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>能量</p>
+                <input class="mc-item-energy" type="number" placeholder="输入能量值"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>碳水化合物</p>
+                <input class="mc-item-carbohydrate" type="number" placeholder="输入碳水化合物含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>蛋白质</p>
+                <input class="mc-item-protein" type="number" placeholder="输入蛋白质含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>动物优质蛋白</p>
+                <input class="mc-item-animal_protein" type="number" placeholder="输入动物优质蛋白含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>植物优质蛋白</p>
+                <input class="mc-item-plant_protein" type="number" placeholder="输入植物优质蛋白含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>脂肪</p>
+                <input class="mc-item-axunge" type="number" placeholder="输入脂肪含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>饱和脂肪酸</p>
+                <input class="mc-item-saturated" type="number" placeholder="输入饱和脂肪酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>单不饱和脂肪酸</p>
+                <input class="mc-item-minsaturated" type="number" placeholder="输入单不饱和脂肪酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>多不饱和脂肪酸</p>
+                <input class="mc-item-maxsaturated" type="number" placeholder="输入多不饱和脂肪酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>苏氨酸</p>
+                <input class="mc-item-threonine" type="number" placeholder="输入苏氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>蛋氨酸</p>
+                <input class="mc-item-methionine" type="number" placeholder="输入蛋氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>亮氨酸</p>
+                <input class="mc-item-leucine" type="number" placeholder="输入亮氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>异亮氨酸</p>
+                <input class="mc-item-isoleucine" type="number" placeholder="输入异亮氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>苯丙氨酸</p>
+                <input class="mc-item-phenylalanine" type="number" placeholder="输入苯丙氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>缬氨酸</p>
+                <input class="mc-item-valine" type="number" placeholder="输入缬氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>赖氨酸</p>
+                <input class="mc-item-lysine" type="number" placeholder="输入赖氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>色氨酸</p>
+                <input class="mc-item-tryptophan" type="number" placeholder="输入色氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>组氨酸</p>
+                <input class="mc-item-histidine" type="number" placeholder="输入组氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>精氨酸</p>
+                <input class="mc-item-arginine" type="number" placeholder="输入精氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>谷氨酰胺</p>
+                <input class="mc-item-glutamine" type="number" placeholder="输入谷氨酰胺含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>牛磺酸</p>
+                <input class="mc-item-taurine" type="number" placeholder="输入牛磺酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>胱氨酸</p>
+                <input class="mc-item-cystine" type="number" placeholder="输入胱氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>酪氨酸</p>
+                <input class="mc-item-tyrosine" type="number" placeholder="输入酪氨酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>烟酸</p>
+                <input class="mc-item-niacin" type="number" placeholder="输入烟酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>叶酸</p>
+                <input class="mc-item-folicacid" type="number" placeholder="输入叶酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>泛酸</p>
+                <input class="mc-item-pantothenic" type="number" placeholder="输入泛酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>肉碱</p>
+                <input class="mc-item-carnitine" type="number" placeholder="输入肉碱含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>生物素</p>
+                <input class="mc-item-biotin" type="number" placeholder="输入生物素含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>胆碱</p>
+                <input class="mc-item-choline" type="number" placeholder="输入胆碱含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>维生素A</p>
+                <input class="mc-item-va" type="number" placeholder="输入维生素A含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>维生素B1</p>
+                <input class="mc-item-vb1" type="number" placeholder="输入维生素B1含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>维生素B2</p>
+                <input class="mc-item-vb2" type="number" placeholder="输入维生素B2含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>维生素B6</p>
+                <input class="mc-item-vb6" type="number" placeholder="输入维生素B6含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>维生素B12</p>
+                <input class="mc-item-vb12" type="number" placeholder="输入维生素B12含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>维生素C</p>
+                <input class="mc-item-vc" type="number" placeholder="输入维生素C含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>维生素D</p>
+                <input class="mc-item-vd" type="number" placeholder="输入维生素D含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>维生素E</p>
+                <input class="mc-item-ve" type="number" placeholder="输入维生素E含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>维生素K</p>
+                <input class="mc-item-vk" type="number" placeholder="输入维生素K含量"/>
+            </div>
+        </div>
+
         <p class="mc-commit">提交</p>
     </div>
 </div>
 <script type="text/javascript">
     //页面加载
     function onPageLoad() {
+        initUpload();
+
         $('.mc-commit').click(function () {
-            var name = $(".mc-item-name").val();
             var url = "/api/material/create";
-            var pama = {"name":name};
-            API_POST(url,pama,function (jsonData) {
-                if(jsonData.error){
+            var name = $(".mc-item-name").val();
+            var img = $(".mc-item-img").text();
+            var intro = $(".mc-item-intro").val();
+            var type = $('#mc-type-select option:selected').val();
+            var element_C = $(".mc-item-c").val();
+            var element_GI = $(".mc-item-gi").val();
+            var element_GL = $(".mc-item-gl").val();
+            var element_P = $(".mc-item-p").val();
+            var element_F = $(".mc-item-f").val();
+            var element_Ca = $(".mc-item-ca").val();
+            var element_Zn = $(".mc-item-zn").val();
+            var element_k = $(".mc-item-k").val();
+            var element_I = $(".mc-item-i").val();
+            var element_Mg = $(".mc-item-mg").val();
+            var element_Fe = $(".mc-item-fe").val();
+            var element_Na = $(".mc-item-na").val();
+            var element_Cl = $(".mc-item-ci").val();
+            var element_Se = $(".mc-item-se").val();
+            var element_Cu = $(".mc-item-cu").val();
+            var element_Gr = $(".mc-item-gr").val();
+            var element_energy = $(".mc-item-energy").val();
+            var element_carbohydrate = $(".mc-item-carbohydrate").val();
+            var element_protein = $(".mc-item-protein").val();
+            var element_animal_protein = $(".mc-item-animal_protein").val();
+            var element_plant_protein = $(".mc-item-plant_protein").val();
+            var element_axunge = $(".mc-item-axunge").val();
+            var element_saturated = $(".mc-item-saturated").val();
+            var element_minsaturated = $(".mc-item-minsaturated").val();
+            var element_maxsaturated = $(".mc-item-maxsaturated").val();
+            var element_threonine = $(".mc-item-threonine").val();
+            var element_methionine = $(".mc-item-methionine").val();
+            var element_leucine = $(".mc-item-leucine").val();
+            var element_isoleucine = $(".mc-item-isoleucine").val();
+            var element_phenylalanine = $(".mc-item-phenylalanine").val();
+            var element_valine = $(".mc-item-valine").val();
+            var element_lysine = $(".mc-item-lysine").val();
+            var element_tryptophan = $(".mc-item-tryptophan").val();
+            var element_histidine = $(".mc-item-histidine").val();
+            var element_arginine = $(".mc-item-arginine").val();
+            var element_glutamine = $(".mc-item-glutamine").val();
+            var element_taurine = $(".mc-item-taurine").val();
+            var element_cystine = $(".mc-item-cystine").val();
+            var element_tyrosine = $(".mc-item-tyrosine").val();
+            var element_niacin = $(".mc-item-niacin").val();
+            var element_folicacid = $(".mc-item-folicacid").val();
+            var element_pantothenic = $(".mc-item-pantothenic").val();
+            var element_carnitine = $(".mc-item-carnitine").val();
+            var element_biotin = $(".mc-item-biotin").val();
+            var element_choline = $(".mc-item-choline").val();
+            var element_Va = $(".mc-item-va").val();
+            var element_Vb1 = $(".mc-item-vb1").val();
+            var element_Vb2 = $(".mc-item-vb2").val();
+            var element_Vb6 = $(".mc-item-vb6").val();
+            var element_Vb12 = $(".mc-item-vb12").val();
+            var element_Vc = $(".mc-item-vc").val();
+            var element_Vd = $(".mc-item-vd").val();
+            var element_Ve = $(".mc-item-ve").val();
+            var element_Vk = $(".mc-item-vk").val();
+
+            var pamas = {
+                "name": name,
+                "type": type,
+                "img": img,
+                "intro": intro,
+                "element_C": element_C,
+                "element_GI": element_GI,
+                "element_GL": element_GL,
+                "element_P": element_P,
+                "element_F": element_F,
+                "element_Ca": element_Ca,
+                "element_Zn": element_Zn,
+                "element_k": element_k,
+                "element_I": element_I,
+                "element_Mg": element_Mg,
+                "element_Fe": element_Fe,
+                "element_Na": element_Na,
+                "element_Cl": element_Cl,
+                "element_Se": element_Se,
+                "element_Cu": element_Cu,
+                "element_Gr": element_Gr,
+                "element_energy": element_energy,
+                "element_carbohydrate": element_carbohydrate,
+                "element_protein": element_protein,
+                "element_animal_protein": element_animal_protein,
+                "element_plant_protein": element_plant_protein,
+                "element_axunge": element_axunge,
+                "element_saturated": element_saturated,
+                "element_minsaturated": element_minsaturated,
+                "element_maxsaturated": element_maxsaturated,
+                "element_threonine": element_threonine,
+                "element_methionine": element_methionine,
+                "element_leucine": element_leucine,
+                "element_isoleucine": element_isoleucine,
+                "element_phenylalanine": element_phenylalanine,
+                "element_valine": element_valine,
+                "element_lysine": element_lysine,
+                "element_tryptophan": element_tryptophan,
+                "element_histidine": element_histidine,
+                "element_arginine": element_arginine,
+                "element_glutamine": element_glutamine,
+                "element_taurine": element_taurine,
+                "element_cystine": element_cystine,
+                "element_tyrosine": element_tyrosine,
+                "element_niacin": element_niacin,
+                "element_folicacid": element_folicacid,
+                "element_pantothenic": element_pantothenic,
+                "element_carnitine": element_carnitine,
+                "element_biotin": element_biotin,
+                "element_choline": element_choline,
+                "element_Va": element_Va,
+                "element_Vb1": element_Vb1,
+                "element_Vb2": element_Vb2,
+                "element_Vb6": element_Vb6,
+                "element_Vb12": element_Vb12,
+                "element_Vc": element_Vc,
+                "element_Vd": element_Vd,
+                "element_Ve": element_Ve,
+                "element_Vk": element_Vk
+            };
+            API_POST(url, pamas, function (jsonData) {
+                if (jsonData.error) {
                     layer.msg(jsonData.msg);
                     return;
                 }
-                layer.alert('添加成功', {icon: 1},function () {
+                layer.alert('添加成功', {icon: 1}, function () {
                     layer.closeAll();
                     cleaninput();
                 });
@@ -148,8 +637,80 @@
         });
     }
 
+    function initUpload() {
+        var url = "/api/qiniu/uptoken";
+        API_GET(url, null, function (jsonData) {
+            if (jsonData.error) {
+                layer.msg(jsonData.msg);
+                return;
+            }
+            var token = jsonData.data.token;
+            var button = 'id_uploadimg';
+            QiniuUpLoad(token, button, function (imgurl) {
+                $(".mc-item-img").html(imgurl);
+                $(".mc-item-img").attr("href", imgurl);
+            });
+        })
+    }
+
     function cleaninput() {
         $(".mc-item-name").val("");
+        $(".mc-item-intro").val("");
+        $(".mc-item-img").html("上传图片");
+        $(".mc-item-c").val("");
+        $(".mc-item-gi").val("");
+        $(".mc-item-gl").val("");
+        $(".mc-item-p").val("");
+        $(".mc-item-f").val("");
+        $(".mc-item-ca").val("");
+        $(".mc-item-zn").val("");
+        $(".mc-item-k").val("");
+        $(".mc-item-i").val("");
+        $(".mc-item-mg").val("");
+        $(".mc-item-fe").val("");
+        $(".mc-item-na").val("");
+        $(".mc-item-ci").val("");
+        $(".mc-item-se").val("");
+        $(".mc-item-cu").val("");
+        $(".mc-item-gr").val("");
+        $(".mc-item-energy").val("");
+        $(".mc-item-carbohydrate").val("");
+        $(".mc-item-protein").val("");
+        $(".mc-item-animal_protein").val("");
+        $(".mc-item-plant_protein").val("");
+        $(".mc-item-axunge").val("");
+        $(".mc-item-saturated").val("");
+        $(".mc-item-minsaturated").val("");
+        $(".mc-item-maxsaturated").val("");
+        $(".mc-item-threonine").val("");
+        $(".mc-item-methionine").val("");
+        $(".mc-item-leucine").val("");
+        $(".mc-item-isoleucine").val("");
+        $(".mc-item-phenylalanine").val("");
+        $(".mc-item-valine").val("");
+        $(".mc-item-lysine").val("");
+        $(".mc-item-tryptophan").val("");
+        $(".mc-item-histidine").val("");
+        $(".mc-item-arginine").val("");
+        $(".mc-item-glutamine").val("");
+        $(".mc-item-taurine").val("");
+        $(".mc-item-cystine").val("");
+        $(".mc-item-tyrosine").val("");
+        $(".mc-item-niacin").val("");
+        $(".mc-item-folicacid").val("");
+        $(".mc-item-pantothenic").val("");
+        $(".mc-item-carnitine").val("");
+        $(".mc-item-biotin").val("");
+        $(".mc-item-choline").val("");
+        $(".mc-item-va").val("");
+        $(".mc-item-vb1").val("");
+        $(".mc-item-vb2").val("");
+        $(".mc-item-vb6").val("");
+        $(".mc-item-vb12").val("");
+        $(".mc-item-vc").val("");
+        $(".mc-item-vd").val("");
+        $(".mc-item-ve").val("");
+        $(".mc-item-vk").val("");
     }
 </script>
 {% include "./lib/admin-footer.html" %}
