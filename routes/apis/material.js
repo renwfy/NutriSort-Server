@@ -109,19 +109,45 @@ exports.edit = function (req, res) {
 
 //列表
 exports.list = function (req, res) {
+    var start = req.query.start;
+    var size = req.query.size;
+
     var aRes = comm.result();
-    var sql = "SELECT * FROM ns_material";
+
+    var sql = "SELECT COUNT(*) AS CNT FROM ns_material";
     var param = [];
     mysql.query(sql, param, function (result) {
-        if (result.error == 0) {
-            aRes.data = result.data;
+        var cnt = result.data[0].CNT;
+        if(cnt == 0){
+            aRes.data.list = null;
+            aRes.data.count = 0;
             aRes.error = 0;
-            aRes.msg = "添加成功";
-        } else {
-            aRes.data = null;
-            aRes.error = -1;
-            aRes.msg = "获取列表失败";
+            aRes.msg = "没有数据";
+            return res.send(aRes);
         }
-        return res.send(aRes);
+        var sql = "SELECT ma.id,ma.name,ma.type,ma.img,ma.intro,ma.element_C,ma.element_GI FROM ns_material ma WHERE is_active=1";
+        var param = [];
+        if (start && size) {
+            //分页
+            if (start <= 1) start = 1;
+            start = start - 1;
+            if (size == 0) size = 10;
+            sql += " LIMIT ?,?";
+            param.push(start*1);
+            param.push(size*1);
+        }
+        mysql.query(sql, param, function (result) {
+            if (result.error == 0) {
+                aRes.data.list = result.data;
+                aRes.data.count = cnt;
+                aRes.error = 0;
+                aRes.msg = "获取成功";
+            } else {
+                aRes.data = null;
+                aRes.error = -1;
+                aRes.msg = "获取列表失败";
+            }
+            return res.send(aRes);
+        });
     });
 };
