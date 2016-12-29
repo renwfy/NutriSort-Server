@@ -506,7 +506,10 @@
         $('.mc-commit').click(function () {
             var url = "/api/material/create";
             var name = $(".mc-item-name").val();
-            var img = $(".mc-item-img").text();
+            var img = $(".mc-item-img").attr("href");
+            if(img == "#"){
+                img = "";
+            }
             var intro = $(".mc-item-intro").val();
             var type = $('#mc-type-select option:selected').val();
             var element_C = $(".mc-item-c").val();
