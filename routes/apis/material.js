@@ -94,7 +94,7 @@ exports.create = function (req, res, next) {
     if (!type) {
         aRes.data = null;
         aRes.error = -1;
-        aRes.msg = "请选择类别";
+        aRes.msg = "请选择能量类别";
         return res.send(aRes);
     }
     //C值
