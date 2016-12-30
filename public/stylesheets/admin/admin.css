@@ -210,14 +210,17 @@
     line-height: 30px;
     margin-bottom: 10px;
 }
-
+.mc-item .not_null{
+    background: url("/images/ic_notnull.png") no-repeat -1px 7px;
+}
 .mc-item p {
-    min-width: 85px;
+    padding-left: 8px;
+    min-width: 95px;
     float: left;
 }
 
 .mc-item input, .mc-item select, .mc-item textarea ,.mc-item-img{
-    width: 200px;
+    width: 190px;
     overflow-x: hidden;
     margin-left: 10px;
     float: left;

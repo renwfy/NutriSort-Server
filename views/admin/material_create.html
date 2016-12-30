@@ -257,45 +257,54 @@
 
         <div class="list-box clearfix">
             <div class="mc-item clearfix">
-                <p>名称</p>
+                <p class="not_null">名称</p>
                 <input class="mc-item-name" type="text" placeholder="请输入名称"/>
             </div>
             <div class="mc-item clearfix">
-                <p class="mc-item-intro-text">简介</p>
+                <p class="mc-item-intro-text not_null">简介</p>
                 <textarea class="mc-item-intro" type="text" placeholder="请输入简介"></textarea>
             </div>
             <div class="mc-item clearfix">
-                <p>图片</p>
+                <p class="not_null">图片</p>
                 <a target="_blank" class="mc-item-img">上传图片</a>
-                <a href="#" id="id_uploadimg">选择文件</a>
+                <a href="" id="id_uploadimg">选择文件</a>
             </div>
             <div class="mc-item clearfix">
-                <p>类别</p>
+                <p class="not_null">食材类别</p>
+                <select id="mc-material_type">
+                    <option value="">请选择食材类别</option>
+                    <option value="material_staplefoods">主食类</option>
+                    <option value="material_vegetables">蔬菜类</option>
+                    <option value="material_fruits">水果类</option>
+                    <option value="material_fishmeats">鱼禽肉蛋类</option>
+                    <option value="material_milkbeans">奶类豆类</option>
+                    <option value="material_greases">油脂类</option>
+                </select>
+            </div>
+            <div class="mc-item clearfix">
+                <p class="not_null">类别</p>
                 <select id="mc-type-select">
-                    <option value="C" selected="selected">C</option>
+                    <option value="">请选择类别</option>
+                    <option value="C">C</option>
                     <option value="P">P</option>
                     <option value="F">F</option>
                 </select>
             </div>
             <div class="mc-item clearfix">
-                <p>C</p>
+                <p class="not_null">C</p>
                 <input class="mc-item-c" type="number" placeholder="输入c含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p class="not_null">P</p>
+                <input class="mc-item-p" type="number" placeholder="输入P含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p class="not_null">F</p>
+                <input class="mc-item-f" type="number" placeholder="输入F含量"/>
             </div>
             <div class="mc-item clearfix">
                 <p>GI</p>
                 <input class="mc-item-gi" type="number" placeholder="输入GI含量"/>
-            </div>
-            <div class="mc-item clearfix">
-                <p>GL</p>
-                <input class="mc-item-gl" type="number" placeholder="输入GL含量"/>
-            </div>
-            <div class="mc-item clearfix">
-                <p>P</p>
-                <input class="mc-item-p" type="number" placeholder="输入P含量"/>
-            </div>
-            <div class="mc-item clearfix">
-                <p>F</p>
-                <input class="mc-item-f" type="number" placeholder="输入F含量"/>
             </div>
             <div class="mc-item clearfix">
                 <p>Ca</p>
@@ -342,7 +351,7 @@
                 <input class="mc-item-gr" type="number" placeholder="输入Gr含量"/>
             </div>
             <div class="mc-item clearfix">
-                <p>能量</p>
+                <p class="not_null">能量</p>
                 <input class="mc-item-energy" type="number" placeholder="输入能量值"/>
             </div>
             <div class="mc-item clearfix">
@@ -354,12 +363,12 @@
                 <input class="mc-item-protein" type="number" placeholder="输入蛋白质含量"/>
             </div>
             <div class="mc-item clearfix">
-                <p>动物优质蛋白</p>
-                <input class="mc-item-animal_protein" type="number" placeholder="输入动物优质蛋白含量"/>
-            </div>
-            <div class="mc-item clearfix">
-                <p>植物优质蛋白</p>
-                <input class="mc-item-plant_protein" type="number" placeholder="输入植物优质蛋白含量"/>
+                <p class="not_null">优质蛋白类型</p>
+                <select id="mc-protein_type">
+                    <option value="">请选择优质蛋白类型</option>
+                    <option value="protein_plant">植物优质蛋白</option>
+                    <option value="protein_animal">动物优质蛋白</option>
+                </select>
             </div>
             <div class="mc-item clearfix">
                 <p>脂肪</p>
@@ -507,16 +516,13 @@
             var url = "/api/material/create";
             var name = $(".mc-item-name").val();
             var img = $(".mc-item-img").attr("href");
-            if(img == "#"){
-                img = "";
-            }
             var intro = $(".mc-item-intro").val();
+            var material_type = $('#mc-material_type option:selected').val();
             var type = $('#mc-type-select option:selected').val();
             var element_C = $(".mc-item-c").val();
-            var element_GI = $(".mc-item-gi").val();
-            var element_GL = $(".mc-item-gl").val();
             var element_P = $(".mc-item-p").val();
             var element_F = $(".mc-item-f").val();
+            var element_GI = $(".mc-item-gi").val();
             var element_Ca = $(".mc-item-ca").val();
             var element_Zn = $(".mc-item-zn").val();
             var element_k = $(".mc-item-k").val();
@@ -531,8 +537,7 @@
             var element_energy = $(".mc-item-energy").val();
             var element_carbohydrate = $(".mc-item-carbohydrate").val();
             var element_protein = $(".mc-item-protein").val();
-            var element_animal_protein = $(".mc-item-animal_protein").val();
-            var element_plant_protein = $(".mc-item-plant_protein").val();
+            var protein_type = $('#mc-protein_type option:selected').val();
             var element_axunge = $(".mc-item-axunge").val();
             var element_saturated = $(".mc-item-saturated").val();
             var element_minsaturated = $(".mc-item-minsaturated").val();
@@ -569,14 +574,14 @@
 
             var pamas = {
                 "name": name,
-                "type": type,
-                "img": img,
                 "intro": intro,
+                "img": img,
+                "material_type":material_type,
+                "type": type,
                 "element_C": element_C,
-                "element_GI": element_GI,
-                "element_GL": element_GL,
                 "element_P": element_P,
                 "element_F": element_F,
+                "element_GI": element_GI,
                 "element_Ca": element_Ca,
                 "element_Zn": element_Zn,
                 "element_k": element_k,
@@ -591,8 +596,7 @@
                 "element_energy": element_energy,
                 "element_carbohydrate": element_carbohydrate,
                 "element_protein": element_protein,
-                "element_animal_protein": element_animal_protein,
-                "element_plant_protein": element_plant_protein,
+                "protein_type": protein_type,
                 "element_axunge": element_axunge,
                 "element_saturated": element_saturated,
                 "element_minsaturated": element_minsaturated,
@@ -659,13 +663,14 @@
     function cleaninput() {
         $(".mc-item-name").val("");
         $(".mc-item-intro").val("");
+        $(".mc-item-img").attr("href", "");
         $(".mc-item-img").html("上传图片");
-        $(".mc-item-img").attr("href", "#");
+        $('#mc-material_type').val("");
+        $('#mc-type-select').val("");
         $(".mc-item-c").val("");
-        $(".mc-item-gi").val("");
-        $(".mc-item-gl").val("");
         $(".mc-item-p").val("");
         $(".mc-item-f").val("");
+        $(".mc-item-gi").val("");
         $(".mc-item-ca").val("");
         $(".mc-item-zn").val("");
         $(".mc-item-k").val("");
@@ -680,8 +685,7 @@
         $(".mc-item-energy").val("");
         $(".mc-item-carbohydrate").val("");
         $(".mc-item-protein").val("");
-        $(".mc-item-animal_protein").val("");
-        $(".mc-item-plant_protein").val("");
+        $('#mc-protein_type').val("");
         $(".mc-item-axunge").val("");
         $(".mc-item-saturated").val("");
         $(".mc-item-minsaturated").val("");

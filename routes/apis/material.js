@@ -1,31 +1,19 @@
-var comm = require('../../config/common');
-var futil = require('../../config/utils');
-var mysql = require('../../public/javascripts/mysql');
+var comm = require('../../public/serverutils/common');
+var futil = require('../../public/serverutils/utils');
+var mysql = require('../../public/serverutils/mysql');
 
 //新增原材料
 exports.create = function (req, res, next) {
     var aRes = comm.result();
     var name = req.body.name;
-    if (!name) {
-        aRes.data = null;
-        aRes.error = -1;
-        aRes.msg = "请输入名称";
-        return res.send(aRes);
-    }
-    var img = req.body.img;
-    if(!img){
-        aRes.data = null;
-        aRes.error = -1;
-        aRes.msg = "请上传图片";
-        return res.send(aRes);
-    }
     var intro = req.body.intro;
+    var img = req.body.img;
+    var material_type = req.body.material_type;
     var type = req.body.type;
     var element_C = futil.ifFloatNull(req.body.element_C);
-    var element_GI = futil.ifFloatNull(req.body.element_GI);
-    var element_GL = futil.ifFloatNull(req.body.element_GL);
     var element_P = futil.ifFloatNull(req.body.element_P);
     var element_F = futil.ifFloatNull(req.body.element_F);
+    var element_GI = futil.ifFloatNull(req.body.element_GI);
     var element_Ca = futil.ifFloatNull(req.body.element_Ca);
     var element_Zn = futil.ifFloatNull(req.body.element_Zn);
     var element_k = futil.ifFloatNull(req.body.element_k);
@@ -40,8 +28,7 @@ exports.create = function (req, res, next) {
     var element_energy = futil.ifFloatNull(req.body.element_energy);
     var element_carbohydrate = futil.ifFloatNull(req.body.element_carbohydrate);
     var element_protein = futil.ifFloatNull(req.body.element_protein);
-    var element_animal_protein = futil.ifFloatNull(req.body.element_animal_protein);
-    var element_plant_protein = futil.ifFloatNull(req.body.element_plant_protein);
+    var protein_type = req.body.protein_type;
     var element_axunge = futil.ifFloatNull(req.body.element_axunge);
     var element_saturated = futil.ifFloatNull(req.body.element_saturated);
     var element_minsaturated = futil.ifFloatNull(req.body.element_minsaturated);
@@ -75,10 +62,80 @@ exports.create = function (req, res, next) {
     var element_Vd = futil.ifFloatNull(req.body.element_Vd);
     var element_Ve = futil.ifFloatNull(req.body.element_Ve);
     var element_Vk = futil.ifFloatNull(req.body.element_Vk);
+    //名称
+    if (!name) {
+        aRes.data = null;
+        aRes.error = -1;
+        aRes.msg = "请输入名称";
+        return res.send(aRes);
+    }
+    //简介
+    if (!intro) {
+        aRes.data = null;
+        aRes.error = -1;
+        aRes.msg = "请输入简介";
+        return res.send(aRes);
+    }
+    //图片
+    if (!img || "#" == img) {
+        aRes.data = null;
+        aRes.error = -1;
+        aRes.msg = "请上传图片";
+        return res.send(aRes);
+    }
+    //食材类别
+    if (!material_type) {
+        aRes.data = null;
+        aRes.error = -1;
+        aRes.msg = "请选择食材类别";
+        return res.send(aRes);
+    }
+    //类别
+    if (!type) {
+        aRes.data = null;
+        aRes.error = -1;
+        aRes.msg = "请选择类别";
+        return res.send(aRes);
+    }
+    //C值
+    if (element_C == 0) {
+        aRes.data = null;
+        aRes.error = -1;
+        aRes.msg = "请输入C值";
+        return res.send(aRes);
+    }
+    //P值
+    if (element_P == 0) {
+        aRes.data = null;
+        aRes.error = -1;
+        aRes.msg = "请输入P值";
+        return res.send(aRes);
+    }
+    //F值
+    if (element_F == 0) {
+        aRes.data = null;
+        aRes.error = -1;
+        aRes.msg = "请输入F值";
+        return res.send(aRes);
+    }
+    //能量
+    if (element_energy == 0) {
+        aRes.data = null;
+        aRes.error = -1;
+        aRes.msg = "请输入所含能量值";
+        return res.send(aRes);
+    }
+    //优质蛋白类型
+    if (!protein_type) {
+        aRes.data = null;
+        aRes.error = -1;
+        aRes.msg = "请选择优质蛋白类型";
+        return res.send(aRes);
+    }
 
-    var sql = "INSERT INTO ns_material (name,img,intro,type,element_C,element_GI,element_GL,element_P,element_F,element_Ca,element_Zn,element_k,element_I,element_Mg,element_Fe,element_Na,element_Cl,element_Se,element_Cu,element_Gr,element_energy,element_carbohydrate,element_protein,element_animal_protein,element_plant_protein,element_axunge,element_saturated,element_minsaturated,element_maxsaturated,element_threonine,element_methionine,element_leucine,element_isoleucine,element_phenylalanine,element_valine,element_lysine,element_tryptophan,element_histidine,element_arginine,element_glutamine,element_taurine,element_cystine,element_tyrosine,element_niacin,element_folicacid,element_pantothenic,element_carnitine,element_biotin,element_choline,element_Va,element_Vb1,element_Vb2,element_Vb6,element_Vb12,element_Vc,element_Vd,element_Ve,element_Vk,created_date,updated_date) " +
-        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW(),NOW())";
-    var param = [name,img,intro,type,element_C,element_GI,element_GL,element_P,element_F,element_Ca,element_Zn,element_k,element_I,element_Mg,element_Fe,element_Na,element_Cl,element_Se,element_Cu,element_Gr,element_energy,element_carbohydrate,element_protein,element_animal_protein,element_plant_protein,element_axunge,element_saturated,element_minsaturated,element_maxsaturated,element_threonine,element_methionine,element_leucine,element_isoleucine,element_phenylalanine,element_valine,element_lysine,element_tryptophan,element_histidine,element_arginine,element_glutamine,element_taurine,element_cystine,element_tyrosine,element_niacin,element_folicacid,element_pantothenic,element_carnitine,element_biotin,element_choline,element_Va,element_Vb1,element_Vb2,element_Vb6,element_Vb12,element_Vc,element_Vd,element_Ve,element_Vk];
+    var sql = "INSERT INTO ns_material (name,img,intro,material_type,type,element_C,element_GI,element_P,element_F,element_Ca,element_Zn,element_k,element_I,element_Mg,element_Fe,element_Na,element_Cl,element_Se,element_Cu,element_Gr,element_energy,element_carbohydrate,element_protein,protein_type,element_axunge,element_saturated,element_minsaturated,element_maxsaturated,element_threonine,element_methionine,element_leucine,element_isoleucine,element_phenylalanine,element_valine,element_lysine,element_tryptophan,element_histidine,element_arginine,element_glutamine,element_taurine,element_cystine,element_tyrosine,element_niacin,element_folicacid,element_pantothenic,element_carnitine,element_biotin,element_choline,element_Va,element_Vb1,element_Vb2,element_Vb6,element_Vb12,element_Vc,element_Vd,element_Ve,element_Vk,created_date,updated_date) " +
+        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW(),NOW())";
+    var param = [name, img, intro, material_type,type, element_C, element_GI, element_P, element_F, element_Ca, element_Zn, element_k, element_I, element_Mg, element_Fe, element_Na, element_Cl, element_Se, element_Cu, element_Gr, element_energy, element_carbohydrate, element_protein, protein_type, element_axunge, element_saturated, element_minsaturated, element_maxsaturated, element_threonine, element_methionine, element_leucine, element_isoleucine, element_phenylalanine, element_valine, element_lysine, element_tryptophan, element_histidine, element_arginine, element_glutamine, element_taurine, element_cystine, element_tyrosine, element_niacin, element_folicacid, element_pantothenic, element_carnitine, element_biotin, element_choline, element_Va, element_Vb1, element_Vb2, element_Vb6, element_Vb12, element_Vc, element_Vd, element_Ve, element_Vk];
     mysql.query(sql, param, function (result) {
         if (result.error == 0) {
             aRes.data = null;
@@ -119,14 +176,14 @@ exports.list = function (req, res) {
     var param = [];
     mysql.query(sql, param, function (result) {
         var cnt = result.data[0].CNT;
-        if(cnt == 0){
+        if (cnt == 0) {
             aRes.data.list = null;
             aRes.data.count = 0;
             aRes.error = 0;
             aRes.msg = "没有数据";
             return res.send(aRes);
         }
-        var sql = "SELECT ma.id,ma.name,ma.type,ma.img,ma.intro,ma.element_C,ma.element_GI FROM ns_material ma WHERE is_active=1";
+        var sql = "SELECT ma.id,ma.name,ma.type,ma.img,ma.intro,ma.element_C,ma.element_GI FROM ns_material ma WHERE is_active=1 ORDER BY ma.created_date desc";
         var param = [];
         if (start && size) {
             //分页
@@ -134,8 +191,8 @@ exports.list = function (req, res) {
             start = start - 1;
             if (size == 0) size = 10;
             sql += " LIMIT ?,?";
-            param.push(start*1);
-            param.push(size*1);
+            param.push(start * 1);
+            param.push(size * 1);
         }
         mysql.query(sql, param, function (result) {
             if (result.error == 0) {

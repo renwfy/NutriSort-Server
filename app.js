@@ -1,9 +1,9 @@
 var express = require('express');
 var app = express();
-var config = require('./config/config');
+var config = require('./server/config');
 
 //express application settings
-require('./config/express')(app);
+require('./server/express')(app);
 
 //api
 require('./routes/api')(app);
@@ -12,7 +12,7 @@ require('./routes/api')(app);
 require('./routes/controller')(app);
 
 //error catch
-require('./config/catch')(app);
+require('./server/catch')(app);
 
 app.listen(config.port, function () {
     console.log(process.env.NODE_ENV);

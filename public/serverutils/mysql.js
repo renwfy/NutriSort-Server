@@ -1,4 +1,4 @@
-var config = require('../../config/config');
+var config = require('../../server/config');
 var mysql = require('mysql');
 
 // get mysql connection

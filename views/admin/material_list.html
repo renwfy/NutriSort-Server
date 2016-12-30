@@ -88,7 +88,7 @@
 </div>
 <script type="text/javascript">
     var g_currPage = 1;
-    var g_list_max_per = 6;
+    var g_list_max_per = 10;
 
     //页面加载
     function onPageLoad() {
@@ -171,7 +171,7 @@
     function getHTMListItem(infoDetail) {
         var name = infoDetail.name;
         var type = infoDetail.type;
-        var img = infoDetail.img;
+        var img = infoDetail.img+"?imageView2/2/w/160";
         var intro = infoDetail.intro;
         var gi = infoDetail.element_GI;
 

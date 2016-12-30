@@ -1,5 +1,5 @@
 var qiniu = require("qiniu");
-var comm = require('../../config/common');
+var comm = require('../../public/serverutils/common');
 
 qiniu.conf.ACCESS_KEY = "OtjXjnLiqCa8_I4tk86ZXpBe5cOs1kebpeTJwbpH";
 qiniu.conf.SECRET_KEY = "UbmlNlwnNxhfLJbS42VBCMpD9kJUHwz2TF6bDQZh";
