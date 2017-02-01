@@ -1,0 +1,39 @@
+{% include "./lib/admin-header.html" %}
+<section class="padding-big">
+</section>
+<script type="text/javascript">
+    //页面加载
+    function onPageLoad() {
+        setViewEvent();
+        //doPageLoad();
+    }
+
+    //点击事件
+    function setViewEvent() {
+    }
+
+    //处理页面数据
+    function doPageLoad() {
+        loadData();
+    }
+
+    //加载数据
+    function loadData() {
+        //计算偏移量
+        var iStart = (g_currPage - 1) * g_list_max_per;
+        var url = '/api/material/list?' + "size=" + g_list_max_per + "&start=" + iStart;
+        var pamas = null;
+        API_GET(url, pamas, setDataToView);
+    }
+
+    //设置数据
+    function setDataToView(jsonData) {
+    }
+
+    //Item
+    function getHTMListItem(infoDetail) {
+        var strHTML = '';
+        return strHTML;
+    }
+</script>
+{% include "./lib/admin-footer.html" %}

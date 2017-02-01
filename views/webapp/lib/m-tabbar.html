@@ -1,0 +1,26 @@
+<div class="tabbar">
+    <nav class="nav_box">
+        <a class="tabitem item_tab1" href="/app/" target="_self">
+            <i class="tab_img"></i>
+            <span class="tab_text">首页</span>
+        </a>
+        <a class="tabitem item_tab2" href="/app/mine" target="_self">
+            <i class="tab_img"></i>
+            <span>我</span>
+        </a>
+    </nav>
+    <script type="text/javascript">
+        //设置nav选中
+        function navActive(i) {
+            $('.nav_box .tabitem').each(function (j) {
+                if (j == i) {
+                    $(this).removeClass('item_tab'+(i+1));
+                    $(this).addClass('item_tab'+(i+1)+'_select');
+                }else{
+                    $(this).removeClass('item_tab'+(j+1)+'_select');
+                    $(this).addClass('item_tab'+(j+1));
+                }
+            });
+        }
+    </script>
+</div>

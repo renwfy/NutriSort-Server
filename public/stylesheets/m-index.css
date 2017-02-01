@@ -1,0 +1,123 @@
+/***首页*/
+.tabbar {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #edeff0;
+    background: white;
+}
+
+.title_bar {
+    background: white;
+    border-bottom: 1px solid #edeff0;
+}
+
+.title_bar_text {
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+}
+
+.nav_box {
+    width: 100%;
+}
+
+/*tab1*/
+.item_tab1 > i {
+    background: url(../images/mobile/ic_tab1_1.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.item_tab1 > span {
+    color: #b7b7b7;
+}
+
+.item_tab1_select > i {
+    background: url(../images/mobile/ic_tab1_2.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.item_tab1_select > span {
+    color: #48b2e9;
+}
+
+/*tab2*/
+.item_tab2 > i {
+    background: url(../images/mobile/ic_tab2_1.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.item_tab2 > span {
+    color: #b7b7b7;
+}
+
+.item_tab2_select > i {
+    background: url(../images/mobile/ic_tab2_2.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.item_tab2_select > span {
+    color: #48b2e9;
+}
+
+/*tab3*/
+.item_tab3 > i {
+    background: url(../images/mobile/ic_tab3_1.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.item_tab3 > span {
+    color: #b7b7b7;
+}
+
+.item_tab3_select > i {
+    background: url(../images/mobile/ic_tab3_2.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.item_tab3_select > span {
+    color: #48b2e9;
+}
+
+/*tab4*/
+.item_tab4 > i {
+    background: url(../images/mobile/ic_tab4_1.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.item_tab4 > span {
+    color: #b7b7b7;
+}
+
+.item_tab4_select > i {
+    background: url(../images/mobile/ic_tab4_2.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.item_tab4_select > span {
+    color: #48b2e9;
+}
+
+.tabitem {
+    padding-top: 5px;
+    padding-bottom: 2px;
+    width: 24%;
+    color: #b7b7b7;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.tab_img {
+    margin: 0 auto;
+    width: 25px;
+    height: 25px;
+    display: block;
+}
+
+.tab_text {
+    font-size: 13px;
+    margin-top: 2px;
+    display: block;
+}

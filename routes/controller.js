@@ -1,4 +1,5 @@
 module.exports = function (app) {
+    //Index
     app.get('/', function (req, res) {
         res.render('index');
     });
@@ -14,6 +15,6 @@ module.exports = function (app) {
     app.get('/admin/material/create', admin.materialcreate);
 
 
-    //webapp
+    //app
 
 };
