@@ -14,8 +14,9 @@ require('./routes/controller')(app);
 //error catch
 require('./server/catch')(app);
 
-app.listen(config.port, function () {
+var port = process.env.PORT || config.port;
+app.listen(port, function () {
     console.log(process.env.NODE_ENV);
-    console.log('Listening on port %d', config.port);
+    console.log('Listening on port %d', port);
 });
 
