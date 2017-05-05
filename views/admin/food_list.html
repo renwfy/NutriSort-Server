@@ -1,0 +1,203 @@
+{% include "./lib/admin-header.html" %}
+<div class="padding-big">
+    <div class="material">
+        <div class="material-head">
+            <div class="viewcontent-head clearfix">
+                <h6 class="fl padding-left viewcontent-head-con">食材列表</h6>
+                <a href="/admin/material/create" class="fr add-material clearfix">
+                    <img src="/images/add.png">
+                    <p>添加</p>
+                </a>
+            </div>
+        </div>
+        <div class="viewcontent-table text-center margin-big-top clearfix">
+            <div class="th w10">
+                名称
+            </div>
+            <div class="th w10">
+                类别
+            </div>
+            <div class="th w20">
+                图片
+            </div>
+            <div class="th w30">
+                简介
+            </div>
+            <div class="th w10">
+                GI
+            </div>
+            <div class="ml-op-txt w20">
+                操作
+            </div>
+        </div>
+        <ul id="id_material-list">
+            <!--
+            <li class="material-item clearfix">
+                <p class="td ml-name w10">白菜</p>
+                <p class="td ml-type w10">C类</p>
+                <div class="td w20 text-center">
+                    <img class="ml-img" src="/images/ml_baicai.png">
+                </div>
+                <p class="td ml-type w30">白菜含有丰富的维生素，适合减肥使用……</p>
+                <p class="td ml-gi w10">100g</p>
+                <div class="ml-op w20">
+                    <a class="ml-op-edit">
+                        <img src="/images/edit.png">
+                    </a>
+                    <a class="ml-op-delete">
+                        <img class="ml-op-delete" src="/images/delete.png">
+                    </a>
+                    <a class="ml-op-details">
+                        <img src="/images/details.png">
+                    </a>
+                </div>
+            </li>
+            <li class="material-item clearfix">
+                <p class="td ml-name w10">苹果</p>
+                <p class="td ml-type w10">C类</p>
+                <div class="td w20 text-center">
+                    <img class="ml-img" src="/images/ml_pingguo.png">
+                </div>
+                <p class="td ml-type w30">苹果含有丰富的维生素，适合减肥使用……</p>
+                <p class="td ml-gi w10">200g</p>
+                <div class="ml-op w20">
+                    <a class="ml-op-edit">
+                        <img src="/images/edit.png">
+                    </a>
+                    <a class="ml-op-delete">
+                        <img class="ml-op-delete" src="/images/delete.png">
+                    </a>
+                    <a class="ml-op-details">
+                        <img src="/images/details.png">
+                    </a>
+                </div>
+            </li>
+            -->
+        </ul>
+        <div class="page clearfix">
+            <ul class="offcial-page margin-top margin-big-right">
+                <li>共<em class="list_count">1</em>条数据</li>
+                <li>每页显示<em class="page_size">10</em>条</li>
+                <li><a class="prev disable">上一页</a></li>
+                <li></li>
+                <li><a class="next disable">下一页</a></li>
+                <li><span class="fl">第<em class="page_current">1</em>页/共<em class="page_total">1</em>页</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var g_currPage = 1;
+    var g_list_max_per = 10;
+
+    //页面加载
+    function onPageLoad() {
+        setViewEvent();
+        doPageLoad();
+    }
+
+    //点击事件
+    function setViewEvent() {
+        $('.prev').click(function () {
+            if ($(this).hasClass("disable")) {
+                return;
+            }
+            g_currPage -= 1;
+            loadData();
+        });
+        $('.next').click(function () {
+            if ($(this).hasClass("disable")) {
+                return;
+            }
+            g_currPage += 1;
+            loadData();
+        });
+    }
+
+    //处理页面数据
+    function doPageLoad() {
+        loadData();
+    }
+
+    //加载数据
+    function loadData() {
+        //计算偏移量
+        layer.load(2);
+        var iStart = (g_currPage - 1) * g_list_max_per;
+        var url = '/api/material/list?' + "size=" + g_list_max_per + "&start=" + iStart;
+        var pamas = null;
+        API_GET(url, pamas, setDataToView);
+    }
+
+    //设置数据
+    function setDataToView(jsonData) {
+        layer.closeAll();
+        if (jsonData.code) {
+            layer.msg(jsonData.msg);
+            return;
+        }
+        var dataInfo = jsonData.data;
+        var count = dataInfo.count;
+        var totalPage = (parseInt(count / g_list_max_per)) + 1;
+        $('.list_count').html(count);//共几条
+        $('.page_size').html(g_list_max_per);//每页几条
+        $('.page_current').html(g_currPage);//第几页
+        $('.page_total').html(totalPage);//共几页
+        if (g_currPage > 1) {
+            $('.prev').removeClass("disable");
+        } else {
+            $('.prev').addClass("disable");
+        }
+        if (g_currPage >= totalPage) {
+            $('.next').addClass("disable");
+        } else {
+            $('.next').removeClass("disable");
+        }
+
+        var dataList = dataInfo.list;
+        if (dataList.length <= 0) {
+            //没有数据
+            $('#id_material-list').html("");
+            return;
+        }
+        var strHTML = '';
+        for (key in dataList) {
+            strHTML += getHTMListItem(dataList[key]);
+        }
+        $('#id_material-list').html(strHTML);
+    }
+
+    //Item
+    function getHTMListItem(infoDetail) {
+        var name = infoDetail.name;
+        var type = infoDetail.type;
+        var img = infoDetail.lagerImage + "?imageView2/5/w/400/h/300";
+        var intro = infoDetail.intro;
+        var gi = infoDetail.gi;
+
+        var strHTML = '';
+        strHTML += '<li class="material-item clearfix">';
+        strHTML += '<p class="td ml-name w10">' + name + '</p>';
+        strHTML += '<p class="td ml-type w10">' + type + "类" + '</p>';
+        strHTML += '<div class="td w20 text-center">';
+        strHTML += '<img class="ml-img" src="' + img + '">';
+        strHTML += '</div>';
+        strHTML += '<p class="td ml-type w30">' + intro + '</p>';
+        strHTML += '<p class="td ml-gi w10">' + gi + '</p>';
+        strHTML += '<div class="ml-op w20">';
+        strHTML += '<a class="ml-op-edit">';
+        strHTML += '<img src="/images/edit.png">';
+        strHTML += '</a>';
+        strHTML += '<a class="ml-op-delete">';
+        strHTML += '<img class="ml-op-delete" src="/images/delete.png">';
+        strHTML += '</a>';
+        strHTML += '<a class="ml-op-details">';
+        strHTML += '<img src="/images/details.png">';
+        strHTML += '</a>';
+        strHTML += '</div>';
+        strHTML += '</li>';
+        return strHTML;
+    }
+
+</script>
+{% include "./lib/admin-footer.html" %}

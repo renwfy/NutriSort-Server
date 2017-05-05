@@ -32,3 +32,17 @@ exports.materialcreate = function (req, res, next) {
         title: "添加食材",
     });
 };
+
+
+exports.foodlist = function (req, res, next) {
+    res.render('admin/food_list', {
+        title: "食材列表",
+    });
+};
+
+//食材创建编辑
+exports.food = function (req, res, next) {
+    res.render('admin/food', {
+        title: "编辑食材",
+    });
+};

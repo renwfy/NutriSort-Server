@@ -12,9 +12,9 @@ module.exports = function (app) {
     swig.setDefaults({ varControls: ['{$', '$}'] });
     app.engine('html', swig.renderFile);
 
-    app.use(logger('dev'));
+    //app.use(logger('dev'));
     if('production' == process.env.NODE_ENV){
-        app.use(logger('pro'));
+        //app.use(logger('pro'));
     }
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));

@@ -172,7 +172,7 @@ exports.list = function (req, res) {
 
     var aRes = comm.result();
 
-    var sql = "SELECT COUNT(*) AS CNT FROM ns_material";
+    var sql = "SELECT COUNT(*) AS CNT FROM ns_foods";
     var param = [];
     mysql.query(sql, param, function (result) {
         var cnt = result.data[0].CNT;
@@ -183,7 +183,7 @@ exports.list = function (req, res) {
             aRes.msg = "没有数据";
             return res.send(aRes);
         }
-        var sql = "SELECT ma.id,ma.name,ma.type,ma.img,ma.intro,ma.element_C,ma.element_GI FROM ns_material ma WHERE is_active=1 ORDER BY ma.created_date desc";
+        var sql = "SELECT ma.id,ma.name,ma.code,ma.type,ma.lagerImage,ma.intro,ma.gi FROM ns_foods ma WHERE ma.isActive=1";
         var param = [];
         if (start && size) {
             //分页
