@@ -143,7 +143,11 @@ function API_GET(url, data, callback) {
         url: url,
         data: data,
         success: function (result) {
-            callback(result);
+            if (result.error) {
+                layer.msg(jsonData.msg);
+                return;
+            }
+            callback(result.data);
         },
         error: function (msg) {
             console.log(msg);
@@ -166,7 +170,11 @@ function API_POST(url, data, callback) {
         url: url,
         data: data,
         success: function (result) {
-            callback(result);
+            if (result.error) {
+                layer.msg(jsonData.msg);
+                return;
+            }
+            callback(result.data);
         },
         error: function (msg) {
             console.log(msg);

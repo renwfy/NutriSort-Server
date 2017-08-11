@@ -4,6 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var swig = require('swig');
+var RateLimit = require('express-rate-limit');
 
 module.exports = function (app) {
     // view engine setup
@@ -20,4 +21,9 @@ module.exports = function (app) {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
     app.use(express.static(config.root + '/public'));
+
+
+    //请求限制
+    var requestLimit = new RateLimit();
+    //app.use('/',requestLimit)
 };

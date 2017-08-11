@@ -1,203 +1,350 @@
 {% include "./lib/admin-header.html" %}
-<div class="padding-big">
-    <div class="material">
-        <div class="material-head">
-            <div class="viewcontent-head clearfix">
-                <h6 class="fl padding-left viewcontent-head-con">食材列表</h6>
-                <a href="/admin/material/create" class="fr add-material clearfix">
-                    <img src="/images/add.png">
-                    <p>添加</p>
-                </a>
+<!--七牛上传用-->
+<script type="text/javascript" src="/javascripts/plupload/plupload.full.min.js"></script>
+<script type="text/javascript" src="/javascripts/plupload/qiniu.min.js"></script>
+<div class="padding-big material-create">
+    <div class="material-head">
+        <div class="viewcontent-head clearfix">
+            <h6 class="page-title fl padding-left viewcontent-head-con">添加食材</h6>
+        </div>
+    </div>
+    <div class="viewcontent-table margin-big-top clearfix">
+        <p class="mc-tips">添加食材</p>
+        <div class="list-box clearfix">
+            <div class="mc-item clearfix">
+                <p class="not_null">名称</p>
+                <input class="mc-item-name" type="text" placeholder="请输入名称"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p class="mc-item-intro-text not_null">说明</p>
+                <textarea class="mc-item-intro" type="text" placeholder="请输入食材说明"></textarea>
+            </div>
+            <div class="mc-item clearfix">
+                <p class="not_null">图片</p>
+                <a target="_blank" class="mc-item-img">上传图片</a>
+                <a href="" id="id_uploadimg">选择文件</a>
+            </div>
+            <div class="mc-item clearfix">
+                <p class="not_null">食材类别</p>
+                <select id="mc-material_type">
+                    <option value="">请选择食材类别</option>
+                    <option value="1">主食类</option>
+                    <option value="2">肉蛋类</option>
+                    <option value="3">大豆及制品</option>
+                    <option value="4">蔬菜菌藻类</option>
+                    <option value="5">水果类</option>
+                    <option value="6">奶类</option>
+                    <option value="7">油脂类</option>
+                    <option value="8">坚果类</option>
+                    <option value="9">调味类</option>
+                    <option value="10">饮料类</option>
+                    <option value="11">零食，点心及冷饮</option>
+                    <option value="12">其它</option>
+                </select>
+            </div>
+            <div class="mc-item clearfix">
+                <p class="not_null">能量类型</p>
+                <select id="mc-type-select">
+                    <option value="">请选择能量类型</option>
+                    <option value="C">C类</option>
+                    <option value="P">P类</option>
+                    <option value="F">F类</option>
+                </select>
+            </div>
+            <div class="mc-item clearfix">
+                <p>gi</p>
+                <input class="mc-item-gi" type="number" placeholder="gi"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>gl</p>
+                <input class="mc-item-gl" type="number" placeholder="输入gl"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>卡路里(热量)</p>
+                <input class="mc-item-calory" type="number" placeholder="输入所含热量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>脂肪</p>
+                <input class="mc-item-fat" type="number" placeholder="输入脂肪含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>脂肪酸</p>
+                <input class="mc-item-fatty" type="number" placeholder="输入脂肪酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p class="not_null">脂肪酸类型</p>
+                <select id="mc-fatty_type">
+                    <option value="">请选择脂肪酸类型</option>
+                    <option value="fa_dan">单不饱和脂肪酸</option>
+                    <option value="fa_duo">多不饱和脂肪酸</option>
+                </select>
+            </div>
+            <div class="mc-item clearfix">
+                <p>蛋白质</p>
+                <input class="mc-item-protein" type="number" placeholder="输入蛋白质含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p class="not_null">蛋白质类型</p>
+                <select id="mc-protein_type">
+                    <option value="">请选择蛋白质类型</option>
+                    <option value="pro_zw">植物性蛋白</option>
+                    <option value="pro_dw">动物性蛋白</option>
+                    <option value="pro_f">非优质蛋白</option>
+                </select>
+            </div>
+            <div class="mc-item clearfix">
+                <p>膳食纤维</p>
+                <input class="mc-item-fiber_dietary" type="number" placeholder="输入膳食纤维含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>碳水化合物</p>
+                <input class="mc-item-carbohydrate" type="number" placeholder="输入碳水化合物含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Va</p>
+                <input class="mc-item-va" type="number" placeholder="输入Va含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Vc</p>
+                <input class="mc-item-vc" type="number" placeholder="输入Vc含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>Ve</p>
+                <input class="mc-item-ve" type="number" placeholder="输入Ve含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>硫胺素</p>
+                <input class="mc-item-thiamine" type="number" placeholder="输入硫胺素含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>乳黄素</p>
+                <input class="mc-item-lactoflavin" type="number" placeholder="输入乳黄素含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>烟酸</p>
+                <input class="mc-item-niacin" type="number" placeholder="输入烟酸含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>钠</p>
+                <input class="mc-item-natrium" type="number" placeholder="输入钠含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>钠</p>
+                <input class="mc-item-natrium" type="number" placeholder="输入钠含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>钙</p>
+                <input class="mc-item-calcium" type="number" placeholder="输入钙含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>铁</p>
+                <input class="mc-item-iron" type="number" placeholder="输入铁含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>钾</p>
+                <input class="mc-item-kalium" type="number" placeholder="输入钾含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>碘</p>
+                <input class="mc-item-iodine" type="number" placeholder="输入碘含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>锌</p>
+                <input class="mc-item-zinc" type="number" placeholder="输入锌含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>硒</p>
+                <input class="mc-item-selenium" type="number" placeholder="输入硒含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>镁</p>
+                <input class="mc-item-magnesium" type="number" placeholder="输入镁含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>铜</p>
+                <input class="mc-item-copper" type="number" placeholder="输入铜含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>锰</p>
+                <input class="mc-item-manganese" type="number" placeholder="输入锰含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>胆固醇</p>
+                <input class="mc-item-cholesterol" type="number" placeholder="输入胆固醇含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>胡萝卜素</p>
+                <input class="mc-item-carotene" type="number" placeholder="输入胡萝卜素含量"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>磷光剂</p>
+                <input class="mc-item-phosphor" type="number" placeholder="输入磷光剂含量"/>
             </div>
         </div>
-        <div class="viewcontent-table text-center margin-big-top clearfix">
-            <div class="th w10">
-                名称
-            </div>
-            <div class="th w10">
-                类别
-            </div>
-            <div class="th w20">
-                图片
-            </div>
-            <div class="th w30">
-                简介
-            </div>
-            <div class="th w10">
-                GI
-            </div>
-            <div class="ml-op-txt w20">
-                操作
-            </div>
-        </div>
-        <ul id="id_material-list">
-            <!--
-            <li class="material-item clearfix">
-                <p class="td ml-name w10">白菜</p>
-                <p class="td ml-type w10">C类</p>
-                <div class="td w20 text-center">
-                    <img class="ml-img" src="/images/ml_baicai.png">
-                </div>
-                <p class="td ml-type w30">白菜含有丰富的维生素，适合减肥使用……</p>
-                <p class="td ml-gi w10">100g</p>
-                <div class="ml-op w20">
-                    <a class="ml-op-edit">
-                        <img src="/images/edit.png">
-                    </a>
-                    <a class="ml-op-delete">
-                        <img class="ml-op-delete" src="/images/delete.png">
-                    </a>
-                    <a class="ml-op-details">
-                        <img src="/images/details.png">
-                    </a>
-                </div>
-            </li>
-            <li class="material-item clearfix">
-                <p class="td ml-name w10">苹果</p>
-                <p class="td ml-type w10">C类</p>
-                <div class="td w20 text-center">
-                    <img class="ml-img" src="/images/ml_pingguo.png">
-                </div>
-                <p class="td ml-type w30">苹果含有丰富的维生素，适合减肥使用……</p>
-                <p class="td ml-gi w10">200g</p>
-                <div class="ml-op w20">
-                    <a class="ml-op-edit">
-                        <img src="/images/edit.png">
-                    </a>
-                    <a class="ml-op-delete">
-                        <img class="ml-op-delete" src="/images/delete.png">
-                    </a>
-                    <a class="ml-op-details">
-                        <img src="/images/details.png">
-                    </a>
-                </div>
-            </li>
-            -->
-        </ul>
-        <div class="page clearfix">
-            <ul class="offcial-page margin-top margin-big-right">
-                <li>共<em class="list_count">1</em>条数据</li>
-                <li>每页显示<em class="page_size">10</em>条</li>
-                <li><a class="prev disable">上一页</a></li>
-                <li></li>
-                <li><a class="next disable">下一页</a></li>
-                <li><span class="fl">第<em class="page_current">1</em>页/共<em class="page_total">1</em>页</span></li>
-            </ul>
-        </div>
+
+        <p class="mc-commit">提交</p>
     </div>
 </div>
 <script type="text/javascript">
-    var g_currPage = 1;
-    var g_list_max_per = 10;
-
+    var foodId = '{$ id $}'
     //页面加载
     function onPageLoad() {
-        setViewEvent();
-        doPageLoad();
+        setViewEvent()
+
+        initUpload()
+
+        //获取详情
+        if (foodId) loadFoodDeatils()
     }
 
-    //点击事件
     function setViewEvent() {
-        $('.prev').click(function () {
-            if ($(this).hasClass("disable")) {
-                return;
+        $('.mc-commit').click(function () {
+            var url = "/api/food";
+
+            var name = $('.mc-item-name').val()//名称
+            var intro = $('.mc-item-intro').val()//说明
+            var lagerImage = $(".mc-item-img").attr("href");//图片
+            var categoryId = $('#mc-material_type option:selected').val();//食材分类
+            var type = $('#mc-type-select option:selected').val();//类别
+            var gi = $(".mc-item-gi").val()//gi
+            var gl = $(".mc-item-gl").val()//gl
+            var calory = $(".mc-item-calory").val()//卡路里
+            var fat = $(".mc-item-fat").val()//脂肪
+            var fatty = $(".mc-item-fatty").val()//脂肪酸
+            var fattyType = $('#mc-fatty_type option:selected').val();//脂肪酸类别
+            var protein = $(".mc-item-protein").val()//蛋白质
+            var proteinType = $('#mc-protein_type option:selected').val();//蛋白质类别
+            var fiber_dietary = $(".mc-item-fiber_dietary").val()//膳食纤维
+            var carbohydrate = $(".mc-item-carbohydrate").val()//碳水化合物
+            var vitamin_a = $(".mc-item-va").val()//va
+            var vitamin_c = $(".mc-item-vc").val()//vc
+            var vitamin_e = $(".mc-item-ve").val()//ve
+            var thiamine = $(".mc-item-thiamine").val()//硫胺素
+            var lactoflavin = $(".mc-item-lactoflavin").val()//乳黄素
+            var niacin = $(".mc-item-niacin").val()//烟酸
+            var natrium = $(".mc-item-natrium").val()//钠
+            var calcium = $(".mc-item-calcium").val()//钙
+            var iron = $(".mc-item-iron").val()//铁
+            var kalium = $(".mc-item-kalium").val()//钾
+            var iodine = $(".mc-item-iodine").val()//碘
+            var zinc = $(".mc-item-zinc").val()//锌
+            var selenium = $(".mc-item-selenium").val()//硒
+            var magnesium = $(".mc-item-magnesium").val()//镁
+            var copper = $(".mc-item-copper").val()//铜
+            var manganese = $(".mc-item-manganese").val()//锰
+            var cholesterol = $(".mc-item-cholesterol").val()//胆固醇
+            var carotene = $(".mc-item-carotene").val()//胡萝卜素
+            var phosphor = $(".mc-item-phosphor").val()//磷光剂
+
+
+            var pamas = {
+                "name": name,
+                "intro": intro,
+                "lagerImage": lagerImage,
+                "categoryId": categoryId,
+                "type":type,
+                "gi":gi,
+                "gl":gl,
+                "calory":calory,
+                "fat":fat,
+                "fatty":fatty,
+                "fattyType":fattyType,
+                "protein":protein,
+                "proteinType":proteinType,
+                "fiber_dietary":fiber_dietary,
+                "carbohydrate":carbohydrate,
+                "vitamin_a":vitamin_a,
+                "vitamin_c":vitamin_c,
+                "vitamin_e":vitamin_e,
+                "thiamine":thiamine,
+                "lactoflavin":lactoflavin,
+                "niacin":niacin,
+                "natrium":natrium,
+                "calcium":calcium,
+                "iron":iron,
+                "kalium":kalium,
+                "iodine":iodine,
+                "zinc":zinc,
+                "selenium":selenium,
+                "magnesium":magnesium,
+                "copper":copper,
+                "manganese":manganese,
+                "cholesterol":cholesterol,
+                "carotene":carotene,
+                "phosphor":phosphor
+            };
+            if(foodId){
+                pamas.id = foodId;
             }
-            g_currPage -= 1;
-            loadData();
-        });
-        $('.next').click(function () {
-            if ($(this).hasClass("disable")) {
-                return;
-            }
-            g_currPage += 1;
-            loadData();
+            API_POST(url, pamas, function (jsonData) {
+                layer.alert('操作成功', {icon: 1}, function () {
+                    layer.closeAll();
+                    window.history.go(-1);
+                });
+            })
         });
     }
 
-    //处理页面数据
-    function doPageLoad() {
-        loadData();
+    function initUpload() {
+        var url = "/api/qiniu/uptoken";
+        API_GET(url, null, function (jsonData) {
+            var token = jsonData.token;
+            var button = 'id_uploadimg';
+            QiniuUpLoad(token, button, function (imgurl) {
+                $(".mc-item-img").html(imgurl);
+                $(".mc-item-img").attr("href", imgurl)
+            });
+        })
     }
 
-    //加载数据
-    function loadData() {
-        //计算偏移量
-        layer.load(2);
-        var iStart = (g_currPage - 1) * g_list_max_per;
-        var url = '/api/material/list?' + "size=" + g_list_max_per + "&start=" + iStart;
-        var pamas = null;
-        API_GET(url, pamas, setDataToView);
+    function loadFoodDeatils() {
+        var url = "/api/food/details?foodId=" + foodId;
+        API_GET(url, null, function (jsonData) {
+
+            $('.page-title').html("编辑食材")
+            $('.mc-tips').html("编辑食材")
+            console.log(jsonData)
+
+            $('.mc-item-name').val(jsonData.name)//名称
+            $('.mc-item-intro').val(jsonData.intro)//说明
+            $(".mc-item-img").html(jsonData.lagerImage);//图片
+            $(".mc-item-img").attr("href", jsonData.lagerImage)
+            $(".mc-item-img").css("color", "#0000FF")
+            if (jsonData.categoryId) $("#mc-material_type").val(jsonData.categoryId)//食材类别
+            if (jsonData.type) $("#mc-type-select").val(jsonData.type)//类别
+            $(".mc-item-gi").val(jsonData.gi)//gi
+            $(".mc-item-gl").val(jsonData.gl)//gl
+            $(".mc-item-calory").val(jsonData.calory)//卡路里
+            $(".mc-item-fat").val(jsonData.fat)//脂肪
+            $(".mc-item-fatty").val(jsonData.fatty)//脂肪酸
+            if (jsonData.fattyType) $("#mc-fatty_type").val(jsonData.fattyType)//脂肪酸类别
+            $(".mc-item-protein").val(jsonData.protein)//蛋白质
+            if (jsonData.proteinType) $("#mc-protein_type").val(jsonData.proteinType)//蛋白质类别
+            $(".mc-item-fiber_dietary").val(jsonData.fiber_dietary)//膳食纤维
+            $(".mc-item-carbohydrate").val(jsonData.carbohydrate)//碳水化合物
+            $(".mc-item-va").val(jsonData.vitamin_a)//va
+            $(".mc-item-vc").val(jsonData.vitamin_c)//vc
+            $(".mc-item-ve").val(jsonData.vitamin_e)//ve
+            $(".mc-item-thiamine").val(jsonData.thiamine)//硫胺素
+            $(".mc-item-lactoflavin").val(jsonData.lactoflavin)//乳黄素
+            $(".mc-item-niacin").val(jsonData.niacin)//烟酸
+            $(".mc-item-natrium").val(jsonData.natrium)//钠
+            $(".mc-item-calcium").val(jsonData.calcium)//钙
+            $(".mc-item-iron").val(jsonData.iron)//铁
+            $(".mc-item-kalium").val(jsonData.kalium)//钾
+            $(".mc-item-iodine").val(jsonData.iodine)//碘
+            $(".mc-item-zinc").val(jsonData.zinc)//锌
+            $(".mc-item-selenium").val(jsonData.selenium)//硒
+            $(".mc-item-magnesium").val(jsonData.magnesium)//镁
+            $(".mc-item-copper").val(jsonData.copper)//铜
+            $(".mc-item-manganese").val(jsonData.manganese)//锰
+            $(".mc-item-cholesterol").val(jsonData.cholesterol)//胆固醇
+            $(".mc-item-carotene").val(jsonData.carotene)//胡萝卜素
+            $(".mc-item-phosphor").val(jsonData.phosphor)//磷光剂
+        })
     }
 
-    //设置数据
-    function setDataToView(jsonData) {
-        layer.closeAll();
-        if (jsonData.code) {
-            layer.msg(jsonData.msg);
-            return;
-        }
-        var dataInfo = jsonData.data;
-        var count = dataInfo.count;
-        var totalPage = (parseInt(count / g_list_max_per)) + 1;
-        $('.list_count').html(count);//共几条
-        $('.page_size').html(g_list_max_per);//每页几条
-        $('.page_current').html(g_currPage);//第几页
-        $('.page_total').html(totalPage);//共几页
-        if (g_currPage > 1) {
-            $('.prev').removeClass("disable");
-        } else {
-            $('.prev').addClass("disable");
-        }
-        if (g_currPage >= totalPage) {
-            $('.next').addClass("disable");
-        } else {
-            $('.next').removeClass("disable");
-        }
-
-        var dataList = dataInfo.list;
-        if (dataList.length <= 0) {
-            //没有数据
-            $('#id_material-list').html("");
-            return;
-        }
-        var strHTML = '';
-        for (key in dataList) {
-            strHTML += getHTMListItem(dataList[key]);
-        }
-        $('#id_material-list').html(strHTML);
+    function cleaninput() {
     }
-
-    //Item
-    function getHTMListItem(infoDetail) {
-        var name = infoDetail.name;
-        var type = infoDetail.type;
-        var img = infoDetail.lagerImage + "?imageView2/5/w/400/h/300";
-        var intro = infoDetail.intro;
-        var gi = infoDetail.gi;
-
-        var strHTML = '';
-        strHTML += '<li class="material-item clearfix">';
-        strHTML += '<p class="td ml-name w10">' + name + '</p>';
-        strHTML += '<p class="td ml-type w10">' + type + "类" + '</p>';
-        strHTML += '<div class="td w20 text-center">';
-        strHTML += '<img class="ml-img" src="' + img + '">';
-        strHTML += '</div>';
-        strHTML += '<p class="td ml-type w30">' + intro + '</p>';
-        strHTML += '<p class="td ml-gi w10">' + gi + '</p>';
-        strHTML += '<div class="ml-op w20">';
-        strHTML += '<a class="ml-op-edit">';
-        strHTML += '<img src="/images/edit.png">';
-        strHTML += '</a>';
-        strHTML += '<a class="ml-op-delete">';
-        strHTML += '<img class="ml-op-delete" src="/images/delete.png">';
-        strHTML += '</a>';
-        strHTML += '<a class="ml-op-details">';
-        strHTML += '<img src="/images/details.png">';
-        strHTML += '</a>';
-        strHTML += '</div>';
-        strHTML += '</li>';
-        return strHTML;
-    }
-
 </script>
 {% include "./lib/admin-footer.html" %}

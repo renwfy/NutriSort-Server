@@ -125,18 +125,21 @@
     border-left: 1px solid #e8e8e9;
     border-right: 1px solid #e8e8e9;
     border-bottom: 1px solid #e8e8e9;
+    cursor: pointer;
 }
 
 .material-item .td {
     float: left;
     text-align: center;
-    min-height: 60px;
-    padding: 8px;
+    height: 60px;
+    line-height: 60px;
     border-right: 1px solid #e8e8e9;
 }
 
 .ml-img {
+    margin-top: 7.5px;
     width: 60px;
+    height: 45px;
 }
 
 .ml-op-txt {
@@ -152,10 +155,11 @@
 }
 
 .ml-op a {
-    width: 60px;
+    width: 50%;
     height: 60px;
     text-align: center;
     display: inline-block;
+    cursor: pointer;
 }
 
 .ml-op a img {

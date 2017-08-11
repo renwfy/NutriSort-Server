@@ -5,9 +5,11 @@ module.exports = function (app) {
 
 
     //material
-    var material = require('./apis/material');
+    var food = require('./apis/food');
     //添加原材料
-    app.post('/api/material/create', material.create);
+    app.post('/api/food/', food.food);
     //编辑
-    app.get('/api/material/list', material.list);
+    app.get('/api/food/list', food.list);
+    app.get('/api/food/details', food.details);
+    app.get('/api/food/hotlist', food.hotList);
 };

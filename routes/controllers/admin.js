@@ -1,3 +1,5 @@
+var fUtils = require('../../public/serverutils/funUtils');
+
 //后台
 exports.index = function (req, res, next) {
     res.render('admin/home', {
@@ -42,7 +44,9 @@ exports.foodlist = function (req, res, next) {
 
 //食材创建编辑
 exports.food = function (req, res, next) {
+    var id = req.query['id']
     res.render('admin/food', {
         title: "编辑食材",
-    });
-};
+        id: id
+    })
+}

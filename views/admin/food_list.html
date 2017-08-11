@@ -4,29 +4,29 @@
         <div class="material-head">
             <div class="viewcontent-head clearfix">
                 <h6 class="fl padding-left viewcontent-head-con">食材列表</h6>
-                <a href="/admin/material/create" class="fr add-material clearfix">
+                <a href="/admin/food" class="fr add-material clearfix">
                     <img src="/images/add.png">
                     <p>添加</p>
                 </a>
             </div>
         </div>
         <div class="viewcontent-table text-center margin-big-top clearfix">
-            <div class="th w10">
+            <div class="th w30">
                 名称
             </div>
             <div class="th w10">
-                类别
-            </div>
-            <div class="th w20">
                 图片
             </div>
+            <div class="th w10">
+                类别(CPF)
+            </div>
             <div class="th w30">
-                简介
+                描述
             </div>
             <div class="th w10">
                 GI
             </div>
-            <div class="ml-op-txt w20">
+            <div class="ml-op-txt w10">
                 操作
             </div>
         </div>
@@ -89,6 +89,7 @@
 <script type="text/javascript">
     var g_currPage = 1;
     var g_list_max_per = 10;
+    var tempData;
 
     //页面加载
     function onPageLoad() {
@@ -112,6 +113,14 @@
             g_currPage += 1;
             loadData();
         });
+        $('#id_material-list').on("click", ".ml-op-edit", function (e) {
+            var evt = e ? e : window.event;
+            evt.stopPropagation();
+
+            var selectIndex = ($(this).parent().parent()).index();
+            var item = tempData[selectIndex];
+            gotoPage("/admin/food?id="+item.id)
+        });
     }
 
     //处理页面数据
@@ -124,7 +133,7 @@
         //计算偏移量
         layer.load(2);
         var iStart = (g_currPage - 1) * g_list_max_per;
-        var url = '/api/material/list?' + "size=" + g_list_max_per + "&start=" + iStart;
+        var url = '/api/food/list?' + "size=" + g_list_max_per + "&start=" + iStart;
         var pamas = null;
         API_GET(url, pamas, setDataToView);
     }
@@ -132,12 +141,7 @@
     //设置数据
     function setDataToView(jsonData) {
         layer.closeAll();
-        if (jsonData.code) {
-            layer.msg(jsonData.msg);
-            return;
-        }
-        var dataInfo = jsonData.data;
-        var count = dataInfo.count;
+        var count = jsonData.count;
         var totalPage = (parseInt(count / g_list_max_per)) + 1;
         $('.list_count').html(count);//共几条
         $('.page_size').html(g_list_max_per);//每页几条
@@ -154,7 +158,7 @@
             $('.next').removeClass("disable");
         }
 
-        var dataList = dataInfo.list;
+        var dataList = tempData = jsonData.list;
         if (dataList.length <= 0) {
             //没有数据
             $('#id_material-list').html("");
@@ -171,28 +175,31 @@
     function getHTMListItem(infoDetail) {
         var name = infoDetail.name;
         var type = infoDetail.type;
+        if (!type) {
+            type = "";
+        }
         var img = infoDetail.lagerImage + "?imageView2/5/w/400/h/300";
         var intro = infoDetail.intro;
+        if (!intro) {
+            intro = "";
+        }
         var gi = infoDetail.gi;
 
         var strHTML = '';
         strHTML += '<li class="material-item clearfix">';
-        strHTML += '<p class="td ml-name w10">' + name + '</p>';
-        strHTML += '<p class="td ml-type w10">' + type + "类" + '</p>';
-        strHTML += '<div class="td w20 text-center">';
+        strHTML += '<p class="td ml-name w30">' + name + '</p>';
+        strHTML += '<div class="td w10 text-center">';
         strHTML += '<img class="ml-img" src="' + img + '">';
         strHTML += '</div>';
+        strHTML += '<p class="td ml-type w10">' + type + '</p>';
         strHTML += '<p class="td ml-type w30">' + intro + '</p>';
         strHTML += '<p class="td ml-gi w10">' + gi + '</p>';
-        strHTML += '<div class="ml-op w20">';
+        strHTML += '<div class="ml-op w10">';
         strHTML += '<a class="ml-op-edit">';
         strHTML += '<img src="/images/edit.png">';
         strHTML += '</a>';
         strHTML += '<a class="ml-op-delete">';
         strHTML += '<img class="ml-op-delete" src="/images/delete.png">';
-        strHTML += '</a>';
-        strHTML += '<a class="ml-op-details">';
-        strHTML += '<img src="/images/details.png">';
         strHTML += '</a>';
         strHTML += '</div>';
         strHTML += '</li>';

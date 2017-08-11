@@ -1,0 +1,120 @@
+/*首页*/
+.index-top-bar {
+    width: 100%;
+    height: 35px;
+    background: blue;
+    position: fixed;
+    top: 0;
+    z-index: 101;
+    display: none;
+}
+
+.index-bar-licon {
+    margin: 5px;
+    float: left;
+    width: 25px;
+    height: 25px;
+    background: url(/images/menu.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.index-bar-ricon {
+    margin: 5px;
+    float: right;
+    width: 25px;
+    height: 25px;
+    background: url(/images/user.png) no-repeat;
+    background-size: 100% 100%;
+}
+
+.index-bar-title {
+    width: 200px;
+    color: white;
+    text-align: center;
+    line-height: 35px;
+    font-size: 14px;
+    margin: 0 auto;
+}
+
+/*bannerSTART*/
+.banner-container {
+    width: 100%;
+    height: 130px;
+    /*margin-top: 35px;*/
+}
+
+.banner-wrapper {
+    position: relative;
+}
+
+.banner-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    width: 92%;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.banner-slide img {
+    width: 100%;
+}
+
+.banner-search {
+    position: absolute;
+    width: 70%;
+    top: 20px;
+    left: 15%;
+    font-size: 11px;
+    z-index: 100;
+    padding: 5px;
+    border: 1px solid #ffffff;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    text-align: center;
+    color: #ffffff;
+    display: none;
+}
+/*bannerEND*/
+
+.foods-item{
+    margin-bottom: 20px;
+}
+.item-contaniner{
+    width: 100%;
+    height: 120px;
+    margin: 20px auto;
+}
+
+.item-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
