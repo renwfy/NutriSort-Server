@@ -43,13 +43,22 @@
                 </select>
             </div>
             <div class="mc-item clearfix">
-                <p class="not_null">能量类型</p>
+                <p class="not_null">一级分类</p>
                 <select id="mc-type-select">
-                    <option value="">请选择能量类型</option>
+                    <option value="">请选择一级分类</option>
                     <option value="C">C类</option>
                     <option value="P">P类</option>
                     <option value="F">F类</option>
+                    <option value="Q">Q类</option>
                 </select>
+            </div>
+            <div class="mc-item clearfix">
+                <p>二级分类</p>
+                <input class="mc-item-type2" type="text" placeholder="输入二级分类"/>
+            </div>
+            <div class="mc-item clearfix">
+                <p>单位份</p>
+                <input class="mc-item-unit" type="number" placeholder="输入单位份"/>
             </div>
             <div class="mc-item clearfix">
                 <p>gi</p>
@@ -206,8 +215,10 @@
             var lagerImage = $(".mc-item-img").attr("href");//图片
             var categoryId = $('#mc-material_type option:selected').val();//食材分类
             var type = $('#mc-type-select option:selected').val();//类别
+            var type2 = $(".mc-item-type2").val()//type2
             var gi = $(".mc-item-gi").val()//gi
             var gl = $(".mc-item-gl").val()//gl
+            var unit = $(".mc-item-unit").val()//unit
             var calory = $(".mc-item-calory").val()//卡路里
             var fat = $(".mc-item-fat").val()//脂肪
             var fatty = $(".mc-item-fatty").val()//脂肪酸
@@ -243,8 +254,10 @@
                 "lagerImage": lagerImage,
                 "categoryId": categoryId,
                 "type":type,
+                "type2":type2,
                 "gi":gi,
                 "gl":gl,
+                "unit":unit,
                 "calory":calory,
                 "fat":fat,
                 "fatty":fatty,

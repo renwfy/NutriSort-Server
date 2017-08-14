@@ -52,7 +52,7 @@ exports.list = function (req, res) {
             aRes.msg = "没有数据";
             return res.send(aRes);
         }
-        var sql = "SELECT ma.id,ma.name,ma.code,ma.type,ma.lagerImage,ma.intro,ma.gi FROM ns_foods ma WHERE ma.isActive=1";
+        var sql = "SELECT id,name,code,type,type2,unit,lagerImage,intro,gi FROM ns_foods WHERE isActive=1 AND type is NULL AND type2 IS NULL";
         var param = [];
         if (start && size) {
             //分页

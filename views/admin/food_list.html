@@ -17,16 +17,16 @@
             <div class="th w10">
                 图片
             </div>
-            <div class="th w10">
-                类别(CPF)
+            <div class="th w15">
+                一级分类
             </div>
-            <div class="th w30">
-                描述
+            <div class="th w15">
+                二级分类
             </div>
-            <div class="th w10">
-                GI
+            <div class="th w15">
+                单位份
             </div>
-            <div class="ml-op-txt w10">
+            <div class="ml-op-txt w15">
                 操作
             </div>
         </div>
@@ -178,10 +178,18 @@
         if (!type) {
             type = "";
         }
+        var type2 = infoDetail.type2;
+        if (!type2) {
+            type2 = "";
+        }
         var img = infoDetail.lagerImage + "?imageView2/5/w/400/h/300";
         var intro = infoDetail.intro;
         if (!intro) {
             intro = "";
+        }
+        var unit = infoDetail.unit;
+        if (!unit) {
+            unit = "";
         }
         var gi = infoDetail.gi;
 
@@ -191,10 +199,10 @@
         strHTML += '<div class="td w10 text-center">';
         strHTML += '<img class="ml-img" src="' + img + '">';
         strHTML += '</div>';
-        strHTML += '<p class="td ml-type w10">' + type + '</p>';
-        strHTML += '<p class="td ml-type w30">' + intro + '</p>';
-        strHTML += '<p class="td ml-gi w10">' + gi + '</p>';
-        strHTML += '<div class="ml-op w10">';
+        strHTML += '<p class="td ml-type w15">' + type + '</p>';
+        strHTML += '<p class="td ml-type w15">' + type2 + '</p>';
+        strHTML += '<p class="td ml-gi w15">' + unit + '</p>';
+        strHTML += '<div class="ml-op w15">';
         strHTML += '<a class="ml-op-edit">';
         strHTML += '<img src="/images/edit.png">';
         strHTML += '</a>';
