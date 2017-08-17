@@ -10,6 +10,7 @@ module.exports = function (app) {
     app.post('/api/food/', food.food);
     //编辑
     app.get('/api/food/list', food.list);
+    app.post('/api/food/delete', food.delete);
     app.get('/api/food/details', food.details);
     app.get('/api/food/hotlist', food.hotList);
 };

@@ -12,6 +12,7 @@ module.exports = function (app) {
     app.get('/admin/login', admin.login);
     app.get('/admin/user/list', admin.userlist);
     app.get('/admin/food/list', admin.foodlist);
+    app.get('/admin/food/listok', admin.foodlistok);
     app.get('/admin/material/create', admin.materialcreate);
     app.get('/admin/food', admin.food);
 

@@ -3,7 +3,7 @@
     <div class="material">
         <div class="material-head">
             <div class="viewcontent-head clearfix">
-                <h6 class="fl padding-left viewcontent-head-con">食材列表(未编辑)</h6>
+                <h6 class="fl padding-left viewcontent-head-con">食材列表(已编辑)</h6>
                 <a href="/admin/food" class="fr add-material clearfix">
                     <img src="/images/add.png">
                     <p>添加</p>
@@ -156,7 +156,7 @@
         //计算偏移量
         layer.load(2);
         var iStart = (g_currPage - 1) * g_list_max_per;
-        var url = '/api/food/list?' + "size=" + g_list_max_per + "&start=" + iStart;
+        var url = '/api/food/list?' +"type=ok"+ "&size=" + g_list_max_per + "&start=" + iStart;
         var pamas = null;
         API_GET(url, pamas, setDataToView);
     }

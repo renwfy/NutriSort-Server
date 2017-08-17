@@ -38,7 +38,13 @@ exports.materialcreate = function (req, res, next) {
 
 exports.foodlist = function (req, res, next) {
     res.render('admin/food_list', {
-        title: "食材列表",
+        title: "未编辑食材列表",
+    });
+};
+
+exports.foodlistok = function (req, res, next) {
+    res.render('admin/food_list_ok', {
+        title: "已编辑食材列表",
     });
 };
 

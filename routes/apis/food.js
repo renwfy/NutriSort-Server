@@ -38,6 +38,7 @@ exports.food = function (req, res, next) {
 exports.list = function (req, res) {
     var start = req.query.start;
     var size = req.query.size;
+    var type = req.query.type;
 
     var aRes = comm.result();
 
@@ -52,7 +53,10 @@ exports.list = function (req, res) {
             aRes.msg = "没有数据";
             return res.send(aRes);
         }
-        var sql = "SELECT id,name,code,type,type2,unit,lagerImage,intro,gi FROM ns_foods WHERE isActive=1 AND type is NULL AND type2 IS NULL";
+        var sql = "SELECT id,name,code,type,type2,unit,lagerImage,intro,gi FROM ns_foods WHERE isActive=1 AND type is NULL";
+        if(type){
+            sql = "SELECT id,name,code,type,type2,unit,lagerImage,intro,gi FROM ns_foods WHERE isActive=1 AND type is NOT NULL";
+        }
         var param = [];
         if (start && size) {
             //分页
@@ -78,6 +82,27 @@ exports.list = function (req, res) {
         });
     });
 };
+
+
+//删除
+exports.delete = function (req, res) {
+    var foodId = req.body.foodId;
+    if (!foodId) {
+        aRes.error = 1;
+        aRes.msg = "未知食材";
+        return res.send(aRes);
+    }
+
+    var aRes = comm.result();
+
+    var sql = "UPDATE ns_foods SET isActive=2 WHERE id=?";
+    var param = [foodId];
+    mysql.query(sql, param, function (result) {
+        aRes.error = 0;
+        aRes.msg = "删除成功";
+        return res.send(aRes);
+    });
+}
 
 //详情
 exports.details = function (req, res) {
@@ -110,7 +135,7 @@ exports.hotList = function (req, res) {
     var param = [];
     mysql.query(sql, param, function (result) {
         var group = result.data;
-        if(!result.data){
+        if (!result.data) {
             aRes.data = {};
             aRes.error = -1;
             aRes.msg = "获取列表失败";
