@@ -6,7 +6,7 @@
     "out_file": "./log_pro_out.log",
     "env": {
       "NODE_ENV": "production",
-      "PORT": 3002
+      "PORT": 8002
     }
   }
 ]
