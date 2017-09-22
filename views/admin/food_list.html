@@ -11,22 +11,31 @@
             </div>
         </div>
         <div class="viewcontent-table text-center margin-big-top clearfix">
-            <div class="th w30">
+            <div class="th w20">
                 名称
             </div>
             <div class="th w10">
                 图片
             </div>
-            <div class="th w15">
+            <div class="th w10">
                 一级分类
             </div>
-            <div class="th w15">
+            <div class="th w10">
                 二级分类
             </div>
-            <div class="th w15">
+            <div class="th w10">
+                碳水化合物
+            </div>
+            <div class="th w10">
+                蛋白质
+            </div>
+            <div class="th w10">
+                脂肪
+            </div>
+            <div class="th w10">
                 单位份
             </div>
-            <div class="ml-op-txt w15">
+            <div class="ml-op-txt w10">
                 操作
             </div>
         </div>
@@ -215,17 +224,25 @@
             unit = "";
         }
         var gi = infoDetail.gi;
+        var carbohydrate = infoDetail.carbohydrate;
+        var protein = infoDetail.protein;
+        var fat = infoDetail.fat;
+
+
 
         var strHTML = '';
         strHTML += '<li class="material-item clearfix">';
-        strHTML += '<p class="td ml-name w30">' + name + '</p>';
+        strHTML += '<p class="td ml-name w20">' + name + '</p>';
         strHTML += '<div class="td w10 text-center">';
         strHTML += '<img class="ml-img" src="' + img + '">';
         strHTML += '</div>';
-        strHTML += '<p class="td ml-type w15">' + type + '</p>';
-        strHTML += '<p class="td ml-type w15">' + type2 + '</p>';
-        strHTML += '<p class="td ml-gi w15">' + unit + '</p>';
-        strHTML += '<div class="ml-op w15">';
+        strHTML += '<p class="td ml-type w10">' + type + '</p>';
+        strHTML += '<p class="td ml-type w10">' + type2 + '</p>';
+        strHTML += '<p class="td ml-carbohydrate w10">' + carbohydrate + '</p>';
+        strHTML += '<p class="td ml-protein w10">' + protein + '</p>';
+        strHTML += '<p class="td ml-fat w10">' + fat + '</p>';
+        strHTML += '<p class="td ml-gi w10">' + unit + '</p>';
+        strHTML += '<div class="ml-op w10">';
         strHTML += '<a class="ml-op-edit">';
         strHTML += '<img src="/images/edit.png">';
         strHTML += '</a>';
