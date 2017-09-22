@@ -53,9 +53,9 @@ exports.list = function (req, res) {
             aRes.msg = "没有数据";
             return res.send(aRes);
         }
-        var sql = "SELECT id,name,code,type,type2,carbohydrate,protein,fat,unit,lagerImage,intro,gi FROM ns_foods WHERE isActive=1 AND type is NULL";
+        var sql = "SELECT id,name,code,type,type2,carbohydrate,protein,fat,calory,unit,lagerImage,intro,gi,gl FROM ns_foods WHERE isActive=1 AND type is NULL";
         if(type){
-            sql = "SELECT id,name,code,type,type2,carbohydrate,protein,fat,unit,lagerImage,intro,gi FROM ns_foods WHERE isActive=1 AND type is NOT NULL";
+            sql = "SELECT id,name,code,type,type2,carbohydrate,protein,fat,calory,unit,lagerImage,intro,gi,gl FROM ns_foods WHERE isActive=1 AND type is NOT NULL";
         }
         var param = [];
         if (start && size) {

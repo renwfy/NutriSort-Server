@@ -76,7 +76,10 @@ exports.foodUnit = function () {
                     var name = info.name;
 
                     var calory = info.calory;
-                    var unit = ((9000 / calory / 25).toFixed(0) * 25);
+                    var unit = 0;
+                    try {
+                        unit = ((9000 / calory / 10).toFixed(0) * 10);
+                    }catch (e){}
                     console.log("" + id + " " + name + ",单位份值：" + unit);
 
                     var sql = "UPDATE ns_foods SET unit =? WHERE id =?";

@@ -26,13 +26,22 @@
             <div class="th w10">
                 碳水化合物
             </div>
-            <div class="th w10">
+            <div class="th w5">
                 蛋白质
             </div>
-            <div class="th w10">
+            <div class="th w5">
                 脂肪
             </div>
-            <div class="th w10">
+            <div class="th w5">
+                卡路里
+            </div>
+            <div class="th w5">
+                gi
+            </div>
+            <div class="th w5">
+                gl
+            </div>
+            <div class="th w5">
                 单位份
             </div>
             <div class="ml-op-txt w10">
@@ -224,9 +233,11 @@
             unit = "";
         }
         var gi = infoDetail.gi;
+        var gl = infoDetail.gl;
         var carbohydrate = infoDetail.carbohydrate;
         var protein = infoDetail.protein;
         var fat = infoDetail.fat;
+        var calory = infoDetail.calory;
 
         var strHTML = '';
         strHTML += '<li class="material-item clearfix">';
@@ -237,9 +248,12 @@
         strHTML += '<p class="td ml-type w10">' + type + '</p>';
         strHTML += '<p class="td ml-type w10">' + type2 + '</p>';
         strHTML += '<p class="td ml-carbohydrate w10">' + carbohydrate + '</p>';
-        strHTML += '<p class="td ml-protein w10">' + protein + '</p>';
-        strHTML += '<p class="td ml-fat w10">' + fat + '</p>';
-        strHTML += '<p class="td ml-gi w10">' + unit + '</p>';
+        strHTML += '<p class="td ml-protein w5">' + protein + '</p>';
+        strHTML += '<p class="td ml-fat w5">' + fat + '</p>';
+        strHTML += '<p class="td ml-calory w5">' + calory + '</p>';
+        strHTML += '<p class="td ml-gi w5">' + gi + '</p>';
+        strHTML += '<p class="td ml-gl w5">' + gl + '</p>';
+        strHTML += '<p class="td ml-unit w5">' + unit + '</p>';
         strHTML += '<div class="ml-op w10">';
         strHTML += '<a class="ml-op-edit">';
         strHTML += '<img src="/images/edit.png">';
