@@ -29,6 +29,10 @@ function gotoPage(url) {
     document.location.href = url;
 }
 
+function gotoPageBlank(url) {
+    window.open(url);
+}
+
 /***
  * 列表页面内容更新
  * @param currPage

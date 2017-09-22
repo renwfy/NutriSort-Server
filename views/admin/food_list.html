@@ -105,8 +105,12 @@
     </div>
 </div>
 <script type="text/javascript">
+    var page = '{$ page $}';
+
     var storage = window.localStorage;
-    var page = storage.getItem("page");
+    if(!page){
+        page = storage.getItem("page");
+    }
 
     var g_currPage = 1;
     if(page){
