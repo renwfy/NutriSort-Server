@@ -105,7 +105,13 @@
     </div>
 </div>
 <script type="text/javascript">
+    var storage = window.localStorage;
+    var page = storage.getItem("page");
+
     var g_currPage = 1;
+    if(page){
+        g_currPage = Number(page);
+    }
     var g_list_max_per = 10;
     var tempData;
 
@@ -181,6 +187,7 @@
 
     //设置数据
     function setDataToView(jsonData) {
+        storage.setItem("page", g_currPage);
         layer.closeAll();
         var count = jsonData.count;
         var totalPage = (parseInt(count / g_list_max_per)) + 1;
