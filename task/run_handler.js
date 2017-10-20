@@ -9,6 +9,5 @@ var handler = require('./handler');
 
 
 function doSome() {
-    //handler.foodType();
-    handler.foodUnit();
+    //handler.foodFiPercent();
 }
